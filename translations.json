@@ -1,0 +1,93 @@
+{
+  "agriculture": {
+    "emoji": "🌱",
+    "en": "Agriculture",
+    "ar": "الزراعة",
+    "az": "Bakı",
+    "bg": "Селско стопанство"
+  },
+  "budget": {
+    "emoji": "🏦",
+    "en": "Budget",
+    "ar": "الميزانية",
+    "az": "Qeydiyyat",
+    "bg": "Бюджет"
+  },
+  "economy": {
+    "emoji": "💵",
+    "en": "Economy",
+    "ar": "الاقتصاد",
+    "az": "İqtisadi",
+    "bg": "Икономика"
+  },
+  "crime": {
+    "emoji": "👮",
+    "en": "Crime",
+    "ar": "الجريمة",
+    "az": "Elan",
+    "bg": "Престъпления"
+  },
+  "education": {
+    "emoji": "🎓",
+    "en": "Education",
+    "ar": "التعليم",
+    "az": "Təhsil",
+    "bg": "Образование"
+  },
+  "environment": {
+    "emoji": "🌍",
+    "en": "Environment",
+    "ar": "البيئة",
+    "az": " Environment",
+    "bg": "Околна среда"
+  },
+  "health": {
+    "emoji": "🏥",
+    "en": "Health",
+    "ar": "الصحة",
+    "az": "Sağlamlıq",
+    "bg": "Здраве"
+  },
+  "housing": {
+    "emoji": "🏠",
+    "en": "Housing",
+    "ar": "الإسكان",
+    "az": "Bakı",
+    "bg": "Жилище"
+  },
+  "infrastructure": {
+    "emoji": "🏗",
+    "en": "Infrastructure",
+    "ar": "الهياكل الأساسية",
+    "az": "Bazar",
+    "bg": "Инфраструктура"
+  },
+  "judiciary": {
+    "emoji": "⚖️",
+    "en": "Judiciary",
+    "ar": "القضاء",
+    "az": "Qalereya",
+    "bg": "Съдебна власт"
+  },
+  "labor": {
+    "emoji": "👷",
+    "en": "Labor",
+    "ar": "العمل",
+    "az": " Labor",
+    "bg": "Труд"
+  },
+  "safety": {
+    "emoji": "🛡️",
+    "en": "Safety",
+    "ar": "السلامة",
+    "az": "Qeydiyyat",
+    "bg": "Безопасност"
+  },
+  "transportation": {
+    "emoji": "🚗",
+    "en": "Transportation",
+    "ar": "النقل",
+    "az": "Avtomobil",
+    "bg": "Транспорт"
+  }
+}

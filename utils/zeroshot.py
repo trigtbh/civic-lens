@@ -1,7 +1,9 @@
-#
+# expects to be run as zeroshot.py [path to bill text]
+# output printed directly to stdout. probably entirely in descending order? 
+
+
 from transformers.utils import logging
 
-# This will suppress all messages below the ERROR level
 logging.set_verbosity_error()
 
 
@@ -13,13 +15,10 @@ classifier = pipeline("zero-shot-classification",
                       model="knowledgator/comprehend_it-base")
 
 
-#text = ""
-#line = "x"
-#while line != "":
-#    line = input()
-#    text = text + line + "\n"
 
-#print(len(text))
+
+
+
 
 import sys
 with open(sys.argv[1]) as f:
