@@ -1,0 +1,547 @@
+	
+ISO 639-1 Code	English name of Language
+aa	Afar
+ab	Abkhazian
+	Achinese
+	Acoli
+	Adangme
+	Adyghe; Adygei
+	Afro-Asiatic languages
+	Afrihili
+af	Afrikaans
+	Ainu
+ak	Akan
+	Akkadian
+sq	Albanian
+	
+	Aleut
+	Algonquian languages
+	Southern Altai
+am	Amharic
+	English, Old (ca.450-1100)
+	Angika
+	Apache languages
+ar	Arabic
+	Official Aramaic (700-300 BCE); Imperial Aramaic (700-300 BCE)
+an	Aragonese
+hy	Armenian
+	
+	Mapudungun; Mapuche
+	Arapaho
+	Artificial languages
+	Arawak
+as	Assamese
+	Asturian; Bable; Leonese; Asturleonese
+	Athapascan languages
+	Australian languages
+av	Avaric
+ae	Avestan
+	Awadhi
+ay	Aymara
+az	Azerbaijani
+	Banda languages
+	Bamileke languages
+ba	Bashkir
+	Baluchi
+bm	Bambara
+	Balinese
+eu	Basque
+	
+	Basa
+	Baltic languages
+	Beja; Bedawiyet
+be	Belarusian
+	Bemba
+bn	Bengali
+	Berber languages
+	Bhojpuri
+	Bihari languages
+	Bikol
+	Bini; Edo
+bi	Bislama
+	Siksika
+	Bantu languages
+bo	Tibetan
+	
+bs	Bosnian
+	Braj
+br	Breton
+	Batak languages
+	Buriat
+	Buginese
+bg	Bulgarian
+my	Burmese
+	
+	Blin; Bilin
+	Caddo
+	Central American Indian languages
+	Galibi Carib
+ca	Catalan; Valencian
+	Caucasian languages
+	Cebuano
+	Celtic languages
+cs	Czech
+	
+ch	Chamorro
+	Chibcha
+ce	Chechen
+	Chagatai
+zh	Chinese
+	
+	Chuukese
+	Mari
+	Chinook jargon
+	Choctaw
+	Chipewyan; Dene Suline
+	Cherokee
+cu	Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic
+cv	Chuvash
+	Cheyenne
+	Chamic languages
+	Montenegrin
+	Coptic
+kw	Cornish
+co	Corsican
+	Creoles and pidgins, English based
+	Creoles and pidgins, French-based
+	Creoles and pidgins, Portuguese-based
+cr	Cree
+	Crimean Tatar; Crimean Turkish
+	Creoles and pidgins
+	Kashubian
+	Cushitic languages
+cy	Welsh
+	
+cs	Czech
+	
+	Dakota
+da	Danish
+	Dargwa
+	Land Dayak languages
+	Delaware
+	Slave (Athapascan)
+de	German
+	
+	Tlicho; Dogrib
+	Dinka
+dv	Divehi; Dhivehi; Maldivian
+	Dogri (macrolanguage)
+	Dravidian languages
+	Lower Sorbian
+	Duala
+	Dutch, Middle (ca.1050-1350)
+nl	Dutch; Flemish
+	
+	Dyula
+dz	Dzongkha
+	Efik
+	Egyptian (Ancient)
+	Ekajuk
+el	Greek, Modern (1453-)
+	
+	Elamite
+en	English
+	English, Middle (1100-1500)
+eo	Esperanto
+et	Estonian
+eu	Basque
+	
+ee	Ewe
+	Ewondo
+	Fang
+fo	Faroese
+fa	Persian
+	
+	Fanti
+fj	Fijian
+	Filipino; Pilipino
+fi	Finnish
+	Finno-Ugrian languages
+	Fon
+fr	French
+	
+fr	French
+	
+	French, Middle (ca.1400-1600)
+	French, Old (842-ca.1400)
+	Northern Frisian
+	Eastern Frisian
+fy	Western Frisian
+ff	Fulah
+	Friulian
+	Ga
+	Gayo
+	Gbaya
+	Germanic languages
+ka	Georgian
+	
+de	German
+	
+	Geez
+	Gilbertese
+gd	Gaelic; Scottish Gaelic
+ga	Irish
+gl	Galician
+gv	Manx
+	German, Middle High (ca.1050-1500)
+	German, Old High (ca.750-1050)
+	Gondi
+	Gorontalo
+	Gothic
+	Grebo
+	Greek, Ancient (to 1453)
+el	Greek, Modern (1453-)
+	
+gn	Guarani
+	Swiss German; Alemannic; Alsatian
+gu	Gujarati
+	Gwich'in
+	Haida
+ht	Haitian; Haitian Creole
+ha	Hausa
+	Hawaiian
+he	Hebrew
+hz	Herero
+	Hiligaynon
+	Himachali languages; Western Pahari languages
+hi	Hindi
+	Hittite
+	Hmong; Mong
+ho	Hiri Motu
+hr	Croatian
+	Upper Sorbian
+hu	Hungarian
+	Hupa
+hy	Armenian
+	
+	Iban
+ig	Igbo
+is	Icelandic
+	
+io	Ido
+ii	Sichuan Yi; Nuosu
+	Ijo languages
+iu	Inuktitut
+ie	Interlingue; Occidental
+	Iloko
+ia	Interlingua (International Auxiliary Language Association)
+	Indic languages
+id	Indonesian
+	Indo-European languages
+	Ingush
+ik	Inupiaq
+	Iranian languages
+	Iroquoian languages
+is	Icelandic
+	
+it	Italian
+jv	Javanese
+	Lojban
+ja	Japanese
+	Judeo-Persian
+	Judeo-Arabic
+	Kara-Kalpak
+	Kabyle
+	Kachin; Jingpho
+kl	Kalaallisut; Greenlandic
+	Kamba
+kn	Kannada
+	Karen languages
+ks	Kashmiri
+ka	Georgian
+	
+kr	Kanuri
+	Kawi
+kk	Kazakh
+	Kabardian
+	Khasi
+	Khoisan languages
+km	Central Khmer
+	Khotanese; Sakan
+ki	Kikuyu; Gikuyu
+rw	Kinyarwanda
+ky	Kirghiz; Kyrgyz
+	Kimbundu
+	Konkani (macrolanguage)
+kv	Komi
+kg	Kongo
+ko	Korean
+	Kosraean
+	Kpelle
+	Karachay-Balkar
+	Karelian
+	Kru languages
+	Kurukh
+kj	Kuanyama; Kwanyama
+	Kumyk
+ku	Kurdish
+	Kutenai
+	Ladino
+	Lahnda
+	Lamba
+lo	Lao
+la	Latin
+lv	Latvian
+	Lezghian
+li	Limburgan; Limburger; Limburgish
+ln	Lingala
+lt	Lithuanian
+	Mongo
+	Lozi
+lb	Luxembourgish; Letzeburgesch
+	Luba-Lulua
+lu	Luba-Katanga
+lg	Ganda
+	Luiseno
+	Lunda
+	Luo (Kenya and Tanzania)
+	Lushai
+mk	Macedonian
+	
+	Madurese
+	Magahi
+mh	Marshallese
+	Maithili
+	Makasar
+ml	Malayalam
+	Mandingo
+mi	Maori
+	
+	Austronesian languages
+mr	Marathi
+	Masai
+ms	Malay (macrolanguage)
+	
+	Moksha
+	Mandar
+	Mende
+	Irish, Middle (900-1200)
+	Mi'kmaq; Micmac
+	Minangkabau
+	Uncoded languages
+mk	Macedonian
+	
+	Mon-Khmer languages
+mg	Malagasy
+mt	Maltese
+	Manchu
+	Manipuri
+	Manobo languages
+	Mohawk
+mn	Mongolian
+	Mossi
+mi	Maori
+	
+ms	Malay (macrolanguage)
+	
+	Multiple languages
+	Munda languages
+	Creek
+	Mirandese
+	Marwari
+my	Burmese
+	
+	Mayan languages
+	Erzya
+	Nahuatl languages
+	North American Indian languages
+	Neapolitan
+na	Nauru
+nv	Navajo; Navaho
+nr	Ndebele, South; South Ndebele
+nd	Ndebele, North; North Ndebele
+ng	Ndonga
+	Low German; Low Saxon; German, Low; Saxon, Low
+ne	Nepali (macrolanguage)
+	Nepal Bhasa; Newari
+	Nias
+	Niger-Kordofanian languages
+	Niuean
+nl	Dutch; Flemish
+	
+nn	Norwegian Nynorsk; Nynorsk, Norwegian
+nb	Bokmål, Norwegian; Norwegian Bokmål
+	Nogai
+	Norse, Old
+no	Norwegian
+	N'Ko
+	Pedi; Sepedi; Northern Sotho
+	Nubian languages
+	Classical Newari; Old Newari; Classical Nepal Bhasa
+ny	Chichewa; Chewa; Nyanja
+	Nyamwezi
+	Nyankole
+	Nyoro
+	Nzima
+oc	Occitan (post 1500)
+oj	Ojibwa
+or	Oriya (macrolanguage)
+om	Oromo
+	Osage
+os	Ossetian; Ossetic
+	Turkish, Ottoman (1500-1928)
+	Otomian languages
+	Papuan languages
+	Pangasinan
+	Pahlavi
+	Pampanga; Kapampangan
+pa	Panjabi; Punjabi
+	Papiamento
+	Palauan
+	Persian, Old (ca.600-400 B.C.)
+fa	Persian
+	
+	Philippine languages
+	Phoenician
+pi	Pali
+pl	Polish
+	Pohnpeian
+pt	Portuguese
+	Prakrit languages
+	Provençal, Old (to 1500);Occitan, Old (to 1500)
+ps	Pushto; Pashto
+	Reserved for local use
+qu	Quechua
+	Rajasthani
+	Rapanui
+	Rarotongan; Cook Islands Maori
+	Romance languages
+rm	Romansh
+	Romany
+ro	Romanian; Moldavian; Moldovan
+	
+rn	Rundi
+	Aromanian; Arumanian; Macedo-Romanian
+ru	Russian
+	Sandawe
+sg	Sango
+	Yakut
+	South American Indian languages
+	Salishan languages
+	Samaritan Aramaic
+sa	Sanskrit
+	Sasak
+	Santali
+	Sicilian
+	Scots
+	Selkup
+	Semitic languages
+	Irish, Old (to 900)
+	Sign Languages
+	Shan
+	Sidamo
+si	Sinhala; Sinhalese
+	Siouan languages
+	Sino-Tibetan languages
+	Slavic languages
+sk	Slovak
+	
+sk	Slovak
+	
+sl	Slovenian
+	Southern Sami
+se	Northern Sami
+	Sami languages
+	Lule Sami
+	Inari Sami
+sm	Samoan
+	Skolt Sami
+sn	Shona
+sd	Sindhi
+	Soninke
+	Sogdian
+so	Somali
+	Songhai languages
+st	Sotho, Southern
+es	Spanish; Castilian
+sq	Albanian
+	
+sc	Sardinian
+	Sranan Tongo
+sr	Serbian
+	Serer
+	Nilo-Saharan languages
+ss	Swati
+	Sukuma
+su	Sundanese
+	Susu
+	Sumerian
+sw	Swahili (macrolanguage)
+sv	Swedish
+	Classical Syriac
+	Syriac
+ty	Tahitian
+	Tai languages
+ta	Tamil
+tt	Tatar
+te	Telugu
+	Timne
+	Tereno
+	Tetum
+tg	Tajik
+tl	Tagalog
+th	Thai
+bo	Tibetan
+	
+	Tigre
+ti	Tigrinya
+	Tiv
+	Tokelau
+	Klingon; tlhIngan-Hol
+	Tlingit
+	Tamashek
+	Tonga (Nyasa)
+to	Tonga (Tonga Islands)
+	Tok Pisin
+	Tsimshian
+tn	Tswana
+ts	Tsonga
+tk	Turkmen
+	Tumbuka
+	Tupi languages
+tr	Turkish
+	Altaic languages
+	Tuvalu
+tw	Twi
+	Tuvinian
+	Udmurt
+	Ugaritic
+ug	Uighur; Uyghur
+uk	Ukrainian
+	Umbundu
+	Undetermined
+ur	Urdu
+uz	Uzbek
+	Vai
+ve	Venda
+vi	Vietnamese
+vo	Volapük
+	Votic
+	Wakashan languages
+	Wolaitta; Wolaytta
+	Waray
+	Washo
+cy	Welsh
+	
+	Sorbian languages
+wa	Walloon
+wo	Wolof
+	Kalmyk; Oirat
+xh	Xhosa
+	Yao
+	Yapese
+yi	Yiddish
+yo	Yoruba
+	Yupik languages
+	Zapotec
+	Blissymbols; Blissymbolics; Bliss
+	Zenaga
+	Standard Moroccan Tamazight
+za	Zhuang; Chuang
+zh	Chinese
+	
+	Zande languages
+zu	Zulu
+	Zuni
+	No linguistic content; Not applicable
+	Zaza; Dimili; Dimli; Kirdki; Kirmanjki; Zazaki

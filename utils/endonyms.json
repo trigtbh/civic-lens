@@ -1,0 +1,239 @@
+{
+  "languages": [
+    {
+      "language": "Albanian",
+      "endonym": "shqip",
+      "flag": "🇦🇱"
+    },
+    {
+        "language": "Persian",
+        "endonym": "فارسی",
+        "flag": "🇮🇷"
+    },
+    {
+      "language": "Arabic",
+      "endonym": "العربية",
+      "flag": "🇸🇦"
+    },
+    {
+      "language": "Azerbaijani",
+      "endonym": "Azərbaycan dili",
+      "flag": "🇦🇿"
+    },
+    {
+      "language": "Basque",
+      "endonym": "euskara",
+      "flag": "🇪🇸"
+    },
+    {
+      "language": "Bengali",
+      "endonym": "বাংলা",
+      "flag": "🇧🇩"
+    },
+    {
+      "language": "Bulgarian",
+      "endonym": "български",
+      "flag": "🇧🇬"
+    },
+    {
+      "language": "Catalan",
+      "endonym": "català",
+      "flag": "🇪🇸"
+    },
+    {
+      "language": "Czech",
+      "endonym": "čeština",
+      "flag": "🇨🇿"
+    },
+    {
+      "language": "Danish",
+      "endonym": "dansk",
+      "flag": "🇩🇰"
+    },
+    {
+      "language": "Dutch",
+      "endonym": "Nederlands",
+      "flag": "🇳🇱"
+    },
+    {
+      "language": "English",
+      "endonym": "English",
+      "flag": "🇺🇸 🇬🇧"
+    },
+    {
+      "language": "Esperanto",
+      "endonym": "Esperanto",
+      "flag": "🇺🇳"
+    },
+    {
+      "language": "Estonian",
+      "endonym": "eesti keel",
+      "flag": "🇪🇪"
+    },
+    {
+      "language": "Finnish",
+      "endonym": "suomi",
+      "flag": "🇫🇮"
+    },
+    {
+      "language": "French",
+      "endonym": "français",
+      "flag": "🇫🇷"
+    },
+    {
+      "language": "Galician",
+      "endonym": "galego",
+      "flag": "🇪🇸"
+    },
+    {
+      "language": "German",
+      "endonym": "Deutsch",
+      "flag": "🇩🇪"
+    },
+    {
+      "language": "Greek",
+      "endonym": "ελληνικά",
+      "flag": "🇬🇷"
+    },
+    {
+      "language": "Hebrew",
+      "endonym": "עברית",
+      "flag": "🇮🇱"
+    },
+    {
+      "language": "Hindi",
+      "endonym": "हिन्दी",
+      "flag": "🇮🇳"
+    },
+    {
+      "language": "Hungarian",
+      "endonym": "magyar",
+      "flag": "🇭🇺"
+    },
+    {
+      "language": "Indonesian",
+      "endonym": "Bahasa Indonesia",
+      "flag": "🇮🇩"
+    },
+    {
+      "language": "Irish",
+      "endonym": "Gaeilge",
+      "flag": "🇮🇪"
+    },
+    {
+      "language": "Italian",
+      "endonym": "italiano",
+      "flag": "🇮🇹"
+    },
+    {
+      "language": "Japanese",
+      "endonym": "日本語",
+      "flag": "🇯🇵"
+    },
+    {
+      "language": "Kirghiz",
+      "endonym": "кыргызча",
+      "flag": "🇰🇬"
+    },
+    {
+      "language": "Korean",
+      "endonym": "한국어",
+      "flag": "🇰🇷"
+    },
+    {
+      "language": "Latvian",
+      "endonym": "latviešu valoda",
+      "flag": "🇱🇻"
+    },
+    {
+      "language": "Lithuanian",
+      "endonym": "lietuvių kalba",
+      "flag": "🇱🇹"
+    },
+    {
+      "language": "Malay",
+      "endonym": "Bahasa Melayu",
+      "flag": "🇲🇾"
+    },
+    {
+      "language": "Bokmål",
+      "endonym": "norsk",
+      "flag": "🇳🇴"
+    },
+    {
+      "language": "Polish",
+      "endonym": "polski",
+      "flag": "🇵🇱"
+    },
+    {
+      "language": "Portuguese",
+      "endonym": "português",
+      "flag": "🇵🇹"
+    },
+    {
+      "language": "Romanian",
+      "endonym": "română",
+      "flag": "🇷🇴"
+    },
+    {
+      "language": "Russian",
+      "endonym": "русский язык",
+      "flag": "🇷🇺"
+    },
+    {
+      "language": "Slovak",
+      "endonym": "slovenčina",
+      "flag": "🇸🇰"
+    },
+    {
+      "language": "Slovenian",
+      "endonym": "slovenščina",
+      "flag": "🇸🇮"
+    },
+    {
+      "language": "Spanish",
+      "endonym": "español",
+      "flag": "🇪🇸"
+    },
+    {
+      "language": "Serbian",
+      "endonym": "српски",
+      "flag": "🇷🇸"
+    },
+    {
+      "language": "Swedish",
+      "endonym": "svenska",
+      "flag": "🇸🇪"
+    },
+    {
+      "language": "Tagalog",
+      "endonym": "Tagalog",
+      "flag": "🇵🇭"
+    },
+    {
+      "language": "Thai",
+      "endonym": "ภาษาไทย",
+      "flag": "🇹🇭"
+    },
+    {
+      "language": "Turkish",
+      "endonym": "Türkçe",
+      "flag": "🇹🇷"
+    },
+    {
+      "language": "Ukrainian",
+      "endonym": "українська",
+      "flag": "🇺🇦"
+    },
+    {
+      "language": "Urdu",
+      "endonym": "اردو",
+      "flag": "🇵🇰"
+    },
+    {
+      "language": "Vietnamese",
+      "endonym": "Tiếng Việt",
+      "flag": "🇻🇳"
+    }
+  ]
+}
