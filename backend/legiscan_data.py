@@ -32,13 +32,33 @@ if resp.status_code == 200:
                 if char.isdigit():
                     billno += char
                 else:
-                    if char == "B": char = "R"
+                    # if char == "B": char = "R"
                     billtype += char
-            links[bill["number"]] = f"https://api.congress.gov/v3/bill/{session_no}/{billtype.lower()}/{billno}"
     
+            translation = {
+                "HB": "HR",
+                "HCR": "hconres",
+                "HJR": "hjres",
 
-input(f"{len(links.items())} bills found. Press Enter to begin scraping.")
+            "SB": "S",
+            "SCR": "sconres",
+            "SJR": "sjres"
 
+            }
+            #bill["number"] = translation.get(bill["number"], bill["number"]).upper() + billno
+
+
+
+            links[bill["number"]] = f"https://api.congress.gov/v3/bill/{session_no}/{translation.get(billtype, billtype)}/{billno}"
+
+
+# links = dict((k, v) for k, v in links.items() if not k.startswith("HB"))
+
+
+# print(list(links.items())[0])
+
+print(f"{len(links.items())} bills found. Press Enter to begin scraping.")
+input()
 
 mongo_uri = os.getenv("MONGO_URI")
 from pymongo import MongoClient

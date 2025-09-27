@@ -69,6 +69,9 @@ for bill in db.find({}):
     if "text" not in bill or not bill["text"]:
         continue
 
+    if summaries.find_one({"_id": bill["_id"]}):
+        continue
+
     text = bill["text"].replace("\n", " ").replace("\r", " ").replace("\t", " ")
     
 
@@ -93,7 +96,7 @@ for bill in db.find({}):
         model="gpt-5-nano",
         instructions=f"Summarize this bill in one short and clear sentence, avoiding legal definitions",
         input=text,
-        
+
     ).output_text.strip()
 
     # print("BP time:", time.time() - a)
