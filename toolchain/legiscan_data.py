@@ -6,6 +6,21 @@ import os
 LEGISCAN_KEY = os.getenv("LEGISCAN_KEY")
 CONGRESS_GOV_KEY = os.getenv("CONGRESS_GOV_KEY")
 
+mongo_uri = os.getenv("MONGO_URI")
+from pymongo import MongoClient
+client = MongoClient(mongo_uri)
+
+
+base_db = client["civiclens"]
+
+db = client["civiclens"]["bills"]
+
+# grab all _ids already in the database
+existing_ids = set(item["_id"] for item in db.find({}, {"_id": 1}))
+
+print(len(existing_ids), "existing bills in database")
+
+
 import requests
 endpoint = f"https://api.legiscan.com/?key={LEGISCAN_KEY}&op=getMasterList&state=US"
 
@@ -55,20 +70,30 @@ if resp.status_code == 200:
 # links = dict((k, v) for k, v in links.items() if not k.startswith("HB"))
 
 
+
+links_to_add = dict((k, v) for k, v in links.items() if k not in existing_ids)
+links_to_delete = set(existing_ids) - set(links.keys())
+
+
+
 # print(list(links.items())[0])
 
-print(f"{len(links.items())} bills found. Press Enter to begin scraping.")
-input()
+print(f"{len(links_to_add)} new bills to add\n{len(links_to_delete)} bills to delete\nPress enter to continue.")
 
-mongo_uri = os.getenv("MONGO_URI")
-from pymongo import MongoClient
-client = MongoClient(mongo_uri)
-db = client["civiclens"]["bills"]
+
+for k in links_to_delete:
+    base_db["bills"].delete_one({"_id": k})
+    base_db["scores"].delete_many({"_id": k})
+    base_db["summaries"].delete_many({"_id": k})
+    print(f"Deleted {k}")
 
 final = {}
 import time
 
+links = {k: v for k, v in links.items() if k in links_to_add}
+
 for k, v in links.items():
+    
     resp = requests.get(v + "?format=json&api_key=" + CONGRESS_GOV_KEY)
     d = {}
     if resp.status_code == 200:

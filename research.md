@@ -1,4 +1,4 @@
-translation api: https://libretranslate.com/docs/#/
-
-zero shot: locally on api.trigtbh.dev (YIKES)
-summary generator: ollama locally on api.trigtbh.dev (YIKES)
+data flow:
+- legiscan_data.py: scrape data, put in mdb
+- generate_summaries.py: turn data into summaries
+- categorize.py: categorize all data

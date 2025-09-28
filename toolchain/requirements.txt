@@ -1,2 +1,6 @@
 dotenv
 fastapi
+openai
+transformers
+pymongo
+torch
