@@ -1,6 +1,11 @@
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
+import { Badge } from '@/components/ui/badge';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Progress } from '@/components/ui/progress';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Switch } from '@/components/ui/switch';
 import { THEME } from '@/lib/theme';
 import { Link, Stack } from 'expo-router';
 import { MoonStarIcon, StarIcon, SunIcon, SettingsIcon } from 'lucide-react-native';
@@ -21,7 +26,6 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.light.background },
     headerLeft: () => <SettingsButton />,
-    headerRight: () => <ThemeToggle />,
   },
   dark: {
     title: 'React Native Reusables',
@@ -29,7 +33,6 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.dark.background },
     headerLeft: () => <SettingsButton />,
-    headerRight: () => <ThemeToggle />,
   },
 };
 
@@ -40,6 +43,9 @@ const IMAGE_STYLE: ImageStyle = {
 
 export default function Screen() {
   const { colorScheme } = useColorScheme();
+  const [switchChecked, setSwitchChecked] = React.useState(true);
+  const [checkboxChecked, setCheckboxChecked] = React.useState(true);
+  const [radioValue, setRadioValue] = React.useState('option1');
 
   return (
     <>
@@ -66,6 +72,67 @@ export default function Screen() {
               <Icon as={StarIcon} />
             </Button>
           </Link>
+        </View>
+
+        {/* Accent Color Test Elements */}
+        <View className="w-full max-w-sm gap-4 p-4 bg-card rounded-lg border">
+          <Text className="text-lg font-semibold text-center">Accent Color Test Elements</Text>
+          
+          <View className="gap-3">
+            <Text className="text-sm font-medium">Button (Default - uses bg-primary)</Text>
+            <Button className="w-full">
+              <Text>Primary Button</Text>
+            </Button>
+          </View>
+
+          <View className="gap-3">
+            <Text className="text-sm font-medium">Switch (uses bg-primary when checked)</Text>
+            <View className="flex-row items-center gap-2">
+              <Switch checked={switchChecked} onCheckedChange={setSwitchChecked} />
+              <Text className="text-sm">Interactive Switch</Text>
+            </View>
+          </View>
+
+          <View className="gap-3">
+            <Text className="text-sm font-medium">Checkbox (uses bg-primary when checked)</Text>
+            <View className="flex-row items-center gap-2">
+              <Checkbox checked={checkboxChecked} onCheckedChange={setCheckboxChecked} />
+              <Text className="text-sm">Interactive Checkbox</Text>
+            </View>
+          </View>
+
+          <View className="gap-3">
+            <Text className="text-sm font-medium">Progress Bar (uses bg-primary)</Text>
+            <Progress value={75} className="w-full" />
+            <Text className="text-xs text-muted-foreground">75% Complete</Text>
+          </View>
+
+          <View className="gap-3">
+            <Text className="text-sm font-medium">Badge (uses bg-primary)</Text>
+            <View className="flex-row gap-2 flex-wrap">
+              <Badge>Default Badge</Badge>
+              <Badge variant="secondary">Secondary</Badge>
+              <Badge variant="outline">Outline</Badge>
+            </View>
+          </View>
+
+          <View className="gap-3">
+            <Text className="text-sm font-medium">Radio Group (uses bg-primary for indicator)</Text>
+            <RadioGroup value={radioValue} onValueChange={setRadioValue}>
+              <View className="flex-row items-center gap-2">
+                <RadioGroupItem value="option1" />
+                <Text className="text-sm">Option 1</Text>
+              </View>
+              <View className="flex-row items-center gap-2">
+                <RadioGroupItem value="option2" />
+                <Text className="text-sm">Option 2</Text>
+              </View>
+              <View className="flex-row items-center gap-2">
+                <RadioGroupItem value="option3" />
+                <Text className="text-sm">Option 3</Text>
+              </View>
+            </RadioGroup>
+          </View>
         </View>
       </View>
     </>

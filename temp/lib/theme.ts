@@ -2,7 +2,7 @@ import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
 import { fontManager } from './fonts'; 
  
 
-export const THEME = {
+export const createTheme = (accentColor: string = '#2563EB') => ({
   light: {
     background: 'hsl(0 0% 100%)',
     foreground: 'hsl(0 0% 3.9%)',
@@ -10,7 +10,7 @@ export const THEME = {
     cardForeground: 'hsl(0 0% 3.9%)',
     popover: 'hsl(0 0% 100%)',
     popoverForeground: 'hsl(0 0% 3.9%)',
-    primary: 'hsl(0 0% 9%)',
+    primary: accentColor,
     primaryForeground: 'hsl(0 0% 98%)',
     secondary: 'hsl(0 0% 96.1%)',
     secondaryForeground: 'hsl(0 0% 9%)',
@@ -44,7 +44,7 @@ export const THEME = {
     cardForeground: 'hsl(0 0% 98%)',
     popover: 'hsl(0 0% 3.9%)',
     popoverForeground: 'hsl(0 0% 98%)',
-    primary: 'hsl(0 0% 98%)',
+    primary: accentColor,
     primaryForeground: 'hsl(0 0% 9%)',
     secondary: 'hsl(0 0% 14.9%)',
     secondaryForeground: 'hsl(0 0% 98%)',
@@ -71,29 +71,38 @@ export const THEME = {
     fontMono: () => fontManager.getFontFamily('monospace'),
 
   },
+});
+
+// Legacy THEME for backward compatibility
+export const THEME = createTheme();
+
+// Function to create NAV_THEME with dynamic accent color
+export const createNavTheme = (accentColor: string = '#2563EB'): Record<'light' | 'dark', Theme> => {
+  const dynamicTheme = createTheme(accentColor);
+  return {
+    light: {
+      ...DefaultTheme,
+      colors: {
+        background: dynamicTheme.light.background,
+        border: dynamicTheme.light.border,
+        card: dynamicTheme.light.card,
+        notification: dynamicTheme.light.destructive,
+        primary: dynamicTheme.light.primary,
+        text: dynamicTheme.light.foreground,
+      },
+    },
+    dark: {
+      ...DarkTheme,
+      colors: {
+        background: dynamicTheme.dark.background,
+        border: dynamicTheme.dark.border,
+        card: dynamicTheme.dark.card,
+        notification: dynamicTheme.dark.destructive,
+        primary: dynamicTheme.dark.primary,
+        text: dynamicTheme.dark.foreground,
+      },
+    },
+  };
 };
  
-export const NAV_THEME: Record<'light' | 'dark', Theme> = {
-  light: {
-    ...DefaultTheme,
-    colors: {
-      background: THEME.light.background,
-      border: THEME.light.border,
-      card: THEME.light.card,
-      notification: THEME.light.destructive,
-      primary: THEME.light.primary,
-      text: THEME.light.foreground,
-    },
-  },
-  dark: {
-    ...DarkTheme,
-    colors: {
-      background: THEME.dark.background,
-      border: THEME.dark.border,
-      card: THEME.dark.card,
-      notification: THEME.dark.destructive,
-      primary: THEME.dark.primary,
-      text: THEME.dark.foreground,
-    },
-  },
-};
+export const NAV_THEME: Record<'light' | 'dark', Theme> = createNavTheme();

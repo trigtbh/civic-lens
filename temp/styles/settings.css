@@ -3,12 +3,12 @@
 /* Default font scaling support */
 :root {
   --font-scale: 1;
-  --text-xs: calc(0.75rem * var(--font-scale));
-  --text-sm: calc(0.875rem * var(--font-scale));
-  --text-base: calc(1rem * var(--font-scale));
-  --text-lg: calc(1.125rem * var(--font-scale));
-  --text-xl: calc(1.25rem * var(--font-scale));
-  --text-2xl: calc(1.5rem * var(--font-scale));
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
   
   /* Default spacing support */
   --spacing-1: 0.25rem;

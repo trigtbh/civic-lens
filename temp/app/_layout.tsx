@@ -4,6 +4,7 @@ import '@/styles/settings.css';
 import { NAV_THEME } from '@/lib/theme';
 import { FontProvider } from '@/lib/FontProvider';
 import { SettingsProvider } from '@/lib/SettingsContext';
+import { DynamicThemeProvider } from '@/lib/DynamicThemeProvider';
 import { setCustomFonts } from '@/lib/fontUtils';
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
@@ -60,11 +61,11 @@ export default function RootLayout() {
   return (
     <SettingsProvider>
       <FontProvider>
-        <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
+        <DynamicThemeProvider>
           <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
           <Stack />
           <PortalHost />
-        </ThemeProvider>
+        </DynamicThemeProvider>
       </FontProvider>
     </SettingsProvider>
   );

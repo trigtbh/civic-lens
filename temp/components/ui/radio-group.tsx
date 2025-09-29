@@ -1,20 +1,22 @@
 import { cn } from '@/lib/utils';
 import * as RadioGroupPrimitive from '@rn-primitives/radio-group';
 import { Platform } from 'react-native';
+import * as React from 'react';
 
-function RadioGroup({
-  className,
-  ...props
-}: RadioGroupPrimitive.RootProps & React.RefAttributes<RadioGroupPrimitive.RootRef>) {
-  return <RadioGroupPrimitive.Root className={cn('gap-3', className)} {...props} />;
-}
+const RadioGroup = React.forwardRef<
+  RadioGroupPrimitive.RootRef,
+  RadioGroupPrimitive.RootProps
+>(({ className, ...props }, ref) => {
+  return <RadioGroupPrimitive.Root ref={ref} className={cn('gap-3', className)} {...props} />;
+});
 
-function RadioGroupItem({
-  className,
-  ...props
-}: RadioGroupPrimitive.ItemProps & React.RefAttributes<RadioGroupPrimitive.ItemRef>) {
+const RadioGroupItem = React.forwardRef<
+  RadioGroupPrimitive.ItemRef,
+  RadioGroupPrimitive.ItemProps
+>(({ className, ...props }, ref) => {
   return (
     <RadioGroupPrimitive.Item
+      ref={ref}
       className={cn(
         'border-input dark:bg-input/30 aspect-square size-4 shrink-0 items-center justify-center rounded-full border shadow-sm shadow-black/5',
         Platform.select({
@@ -27,6 +29,9 @@ function RadioGroupItem({
       <RadioGroupPrimitive.Indicator className="bg-primary size-2 rounded-full" />
     </RadioGroupPrimitive.Item>
   );
-}
+});
+
+RadioGroup.displayName = 'RadioGroup';
+RadioGroupItem.displayName = 'RadioGroupItem';
 
 export { RadioGroup, RadioGroupItem };

@@ -3,6 +3,7 @@ import * as Slot from '@rn-primitives/slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { Platform, Text as RNText, type Role } from 'react-native';
+import { useSettings } from '@/lib/SettingsContext';
 
 const textVariants = cva(
   cn(
@@ -68,22 +69,39 @@ function Text({
   className,
   asChild = false,
   variant = 'default',
+  disableFontScaling = false,
   ...props
-}: React.ComponentProps<typeof RNText> &
-  TextVariantProps &
+}: React.ComponentProps<typeof RNText> & 
+  TextVariantProps & 
   React.RefAttributes<RNText> & {
     asChild?: boolean;
+    disableFontScaling?: boolean;
   }) {
   const textClass = React.useContext(TextClassContext);
+  const { fontScale } = useSettings();
   const Component = asChild ? Slot.Text : RNText;
+  
+  // Apply font scaling to text (unless disabled)
+  const scaledProps = React.useMemo(() => {
+    if (fontScale !== 1 && !disableFontScaling) {
+      const currentStyle = Array.isArray(props.style) ? props.style : [props.style];
+      return {
+        ...props,
+        style: [
+          ...currentStyle,
+          { fontSize: fontScale * 16 } // Base font size of 16px scaled
+        ]
+      };
+    }
+    return props;
+  }, [fontScale, props, disableFontScaling]);
+  
   return (
     <Component
       className={cn(textVariants({ variant }), textClass, className)}
       role={variant ? ROLE[variant] : undefined}
       aria-level={variant ? ARIA_LEVEL[variant] : undefined}
-      {...props}
+      {...scaledProps}
     />
   );
-}
-
-export { Text, TextClassContext };
+}export { Text, TextClassContext };

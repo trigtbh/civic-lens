@@ -3,6 +3,12 @@ import { Platform } from 'react-native';
 
 interface SettingsContextType {
   fontScale: number;
+  fontSize: 'small' | 'medium' | 'large' | 'xl';
+  accentColor: {
+    label: string;
+    value: string;
+    hex: string;
+  };
   spacingMode: 'compact' | 'comfortable' | 'spacious';
   spacingValues: {
     spacing1: number;
@@ -12,6 +18,8 @@ interface SettingsContextType {
     spacing6: number;
   };
   updateFontScale: (scale: number) => void;
+  updateFontSize: (size: 'small' | 'medium' | 'large' | 'xl') => void;
+  updateAccentColor: (color: { label: string; value: string; hex: string }) => void;
   updateSpacingMode: (mode: 'compact' | 'comfortable' | 'spacious') => void;
   getScaledFontSize: (baseSize: number) => number;
   getSpacing: (key: keyof SettingsContextType['spacingValues']) => number;
@@ -33,7 +41,37 @@ interface SettingsProviderProps {
 
 export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) => {
   const [fontScale, setFontScale] = useState(1);
+  const [fontSize, setFontSize] = useState<'small' | 'medium' | 'large' | 'xl'>('medium');
+  const [accentColor, setAccentColor] = useState<{ label: string; value: string; hex: string }>({
+    label: 'Blue',
+    value: 'blue',
+    hex: '#2563EB'
+  });
   const [spacingMode, setSpacingMode] = useState<'compact' | 'comfortable' | 'spacious'>('comfortable');
+  
+  // Set initial CSS custom properties and classes on mount and when fontScale/spacingMode changes
+  useEffect(() => {
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      // Set individual font size variables based on current scale
+      const baseSizes = {
+        xs: 0.75,
+        sm: 0.875,
+        base: 1,
+        lg: 1.125,
+        xl: 1.25,
+        '2xl': 1.5
+      };
+      
+      Object.entries(baseSizes).forEach(([size, base]) => {
+        const scaledSize = base * fontScale;
+        document.documentElement.style.setProperty(`--text-${size}`, `${scaledSize}rem`);
+      });
+      
+      // Remove existing spacing classes and add new one
+      document.documentElement.classList.remove('spacing-compact', 'spacing-comfortable', 'spacing-spacious');
+      document.documentElement.classList.add(`spacing-${spacingMode}`);
+    }
+  }, [fontScale, spacingMode]);
   
   const spacingModes = {
     compact: {
@@ -65,15 +103,58 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     setFontScale(scale);
     // Also set global for web compatibility
     if (typeof global !== 'undefined') {
-      global.fontScale = scale;
+      (global as any).fontScale = scale;
     }
+    // Update CSS custom properties for web font scaling
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      // Set individual font size variables based on scale
+      const baseSizes = {
+        xs: 0.75,
+        sm: 0.875,
+        base: 1,
+        lg: 1.125,
+        xl: 1.25,
+        '2xl': 1.5
+      };
+      
+      Object.entries(baseSizes).forEach(([size, base]) => {
+        const scaledSize = base * scale;
+        document.documentElement.style.setProperty(`--text-${size}`, `${scaledSize}rem`);
+      });
+      
+      console.log('Font scale updated to:', scale);
+    }
+  };
+
+  const updateFontSize = (size: 'small' | 'medium' | 'large' | 'xl') => {
+    setFontSize(size);
+    // Update font scale based on size
+    const scaleMap = {
+      small: 0.875,
+      medium: 1,
+      large: 1.125,
+      xl: 1.25
+    };
+    setFontScale(scaleMap[size]);
+  };
+
+  const updateAccentColor = (color: { label: string; value: string; hex: string }) => {
+    setAccentColor(color);
   };
 
   const updateSpacingMode = (mode: 'compact' | 'comfortable' | 'spacious') => {
     setSpacingMode(mode);
     // Also set global for web compatibility
     if (typeof global !== 'undefined') {
-      global.spacingMode = spacingModes[mode];
+      (global as any).spacingMode = spacingModes[mode];
+    }
+    // Update CSS classes for web spacing
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      const root = document.documentElement;
+      // Remove existing spacing classes
+      root.classList.remove('spacing-compact', 'spacing-comfortable', 'spacing-spacious');
+      // Add new spacing class
+      root.classList.add(`spacing-${mode}`);
     }
   };
 
@@ -89,9 +170,13 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     <SettingsContext.Provider
       value={{
         fontScale,
+        fontSize,
+        accentColor,
         spacingMode,
         spacingValues,
         updateFontScale,
+        updateFontSize,
+        updateAccentColor,
         updateSpacingMode,
         getScaledFontSize,
         getSpacing,

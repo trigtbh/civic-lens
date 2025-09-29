@@ -38,6 +38,7 @@ import {
 } from 'lucide-react-native';
 import { useColorScheme } from 'nativewind';
 import { cn } from '@/lib/utils';
+import { useSettings } from '@/lib/SettingsContext';
 
 interface SettingsModalProps {
   children: React.ReactNode;
@@ -91,6 +92,18 @@ const ACCENT_COLOR_OPTIONS: LocalOption[] = [
   { label: 'Orange', value: 'orange', hex: '#F97316' },
   { label: 'Red', value: 'red', hex: '#EF4444' },
   { label: 'Pink', value: 'pink', hex: '#EC4899' },
+  { label: 'Teal', value: 'teal', hex: '#0D9488' },
+  { label: 'Cyan', value: 'cyan', hex: '#0891B2' },
+  { label: 'Indigo', value: 'indigo', hex: '#4338CA' },
+  { label: 'Violet', value: 'violet', hex: '#7C3AED' },
+  { label: 'Emerald', value: 'emerald', hex: '#059669' },
+  { label: 'Lime', value: 'lime', hex: '#65A30D' },
+  { label: 'Amber', value: 'amber', hex: '#D97706' },
+  { label: 'Rose', value: 'rose', hex: '#F43F5E' },
+  { label: 'Sky', value: 'sky', hex: '#0284C7' },
+  { label: 'Slate', value: 'slate', hex: '#64748B' },
+  { label: 'Yellow', value: 'yellow', hex: '#EAB308' },
+  { label: 'Fuchsia', value: 'fuchsia', hex: '#C026D3' },
 ];
 
 const SwitchComponent = ({ checked, onCheckedChange, disabled = false }: { 
@@ -99,16 +112,22 @@ const SwitchComponent = ({ checked, onCheckedChange, disabled = false }: {
   disabled?: boolean;
 }) => {
   if (Platform.OS === 'web') {
-    return <Switch checked={checked} onCheckedChange={onCheckedChange} disabled={disabled} />;
+    return (
+      <View className="flex items-center justify-center">
+        <Switch checked={checked} onCheckedChange={onCheckedChange} disabled={disabled} />
+      </View>
+    );
   }
   return (
-    <RNSwitch 
-      value={checked} 
-      onValueChange={onCheckedChange} 
-      disabled={disabled}
-      trackColor={{ false: '#767577', true: '#81b0ff' }}
-      thumbColor={checked ? '#f5dd4b' : '#f4f3f4'}
-    />
+    <View className="flex items-center justify-center">
+      <RNSwitch 
+        value={checked} 
+        onValueChange={onCheckedChange} 
+        disabled={disabled}
+        trackColor={{ false: '#767577', true: '#81b0ff' }}
+        thumbColor={checked ? '#f5dd4b' : '#f4f3f4'}
+      />
+    </View>
   );
 };
 
@@ -118,13 +137,26 @@ export function SettingsModal({ children }: SettingsModalProps) {
   const { colorScheme, toggleColorScheme } = useColorScheme();
   const [notifications, setNotifications] = useState(true);
   const [darkMode, setDarkMode] = useState(colorScheme === 'dark');
-  const [fontSize, setFontSize] = useState<LocalOption>({ label: 'Medium', value: 'medium' });
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [autoSync, setAutoSync] = useState(true);
   const [privacyLevel, setPrivacyLevel] = useState<LocalOption>({ label: 'Standard', value: 'standard' });
-  const [accentColor, setAccentColor] = useState<LocalOption>({ label: 'Blue', value: 'blue' });
   const [email, setEmail] = useState('user@example.com');
   const [displayName, setDisplayName] = useState('John Doe');
+
+  const { fontSize, updateFontSize, accentColor, updateAccentColor } = useSettings();
+
+  // Helper function to get font size option object
+  const getFontSizeOption = (size: 'small' | 'medium' | 'large' | 'xl'): LocalOption => {
+    const options = {
+      small: { label: 'Small', value: 'small' },
+      medium: { label: 'Medium', value: 'medium' },
+      large: { label: 'Large', value: 'large' },
+      xl: { label: 'Extra Large', value: 'xl' }
+    };
+    return options[size];
+  };
+
+  const currentFontSizeOption = getFontSizeOption(fontSize);
 
   const { width } = Dimensions.get('window');
   const isMobile = Platform.OS === 'ios' || Platform.OS === 'android' || (Platform.OS === 'web' && width < 768);
@@ -166,10 +198,10 @@ export function SettingsModal({ children }: SettingsModalProps) {
       'Font Size',
       'Select your preferred font size',
       [
-        { text: 'Small', onPress: () => setFontSize({ label: 'Small', value: 'small' }) },
-        { text: 'Medium', onPress: () => setFontSize({ label: 'Medium', value: 'medium' }) },
-        { text: 'Large', onPress: () => setFontSize({ label: 'Large', value: 'large' }) },
-        { text: 'Extra Large', onPress: () => setFontSize({ label: 'Extra Large', value: 'xl' }) },
+        { text: 'Small', onPress: () => updateFontSize('small') },
+        { text: 'Medium', onPress: () => updateFontSize('medium') },
+        { text: 'Large', onPress: () => updateFontSize('large') },
+        { text: 'Extra Large', onPress: () => updateFontSize('xl') },
         { text: 'Cancel', style: 'cancel' },
       ]
     );
@@ -190,7 +222,7 @@ export function SettingsModal({ children }: SettingsModalProps) {
 
   const handleFontSizeChange = (option: Option) => {
     if (option && option.label && option.value) {
-      setFontSize({ label: option.label, value: option.value });
+      updateFontSize(option.value as 'small' | 'medium' | 'large' | 'xl');
     }
   };
 
@@ -205,12 +237,12 @@ export function SettingsModal({ children }: SettingsModalProps) {
       'Accent Color',
       'Choose your preferred accent color',
       [
-        { text: 'Blue', onPress: () => setAccentColor({ label: 'Blue', value: 'blue' }) },
-        { text: 'Purple', onPress: () => setAccentColor({ label: 'Purple', value: 'purple' }) },
-        { text: 'Green', onPress: () => setAccentColor({ label: 'Green', value: 'green' }) },
-        { text: 'Orange', onPress: () => setAccentColor({ label: 'Orange', value: 'orange' }) },
-        { text: 'Red', onPress: () => setAccentColor({ label: 'Red', value: 'red' }) },
-        { text: 'Pink', onPress: () => setAccentColor({ label: 'Pink', value: 'pink' }) },
+        { text: 'Blue', onPress: () => updateAccentColor({ label: 'Blue', value: 'blue', hex: '#2563EB' }) },
+        { text: 'Purple', onPress: () => updateAccentColor({ label: 'Purple', value: 'purple', hex: '#7C3AED' }) },
+        { text: 'Green', onPress: () => updateAccentColor({ label: 'Green', value: 'green', hex: '#16A34A' }) },
+        { text: 'Orange', onPress: () => updateAccentColor({ label: 'Orange', value: 'orange', hex: '#F97316' }) },
+        { text: 'Red', onPress: () => updateAccentColor({ label: 'Red', value: 'red', hex: '#EF4444' }) },
+        { text: 'Pink', onPress: () => updateAccentColor({ label: 'Pink', value: 'pink', hex: '#EC4899' }) },
         { text: 'Cancel', style: 'cancel' },
       ]
     );
@@ -218,7 +250,14 @@ export function SettingsModal({ children }: SettingsModalProps) {
 
   const handleAccentColorChange = (option: Option) => {
     if (option && option.label && option.value) {
-      setAccentColor({ label: option.label, value: option.value });
+      const colorOption = ACCENT_COLOR_OPTIONS.find(color => color.value === option.value);
+      if (colorOption && colorOption.hex) {
+        updateAccentColor({
+          label: colorOption.label,
+          value: colorOption.value,
+          hex: colorOption.hex
+        });
+      }
     }
   };
 
@@ -341,22 +380,24 @@ export function SettingsModal({ children }: SettingsModalProps) {
                             <Accordion type="single" collapsible>
                               <AccordionItem value="font-size" className="border border-border rounded-md">
                                 <AccordionTrigger className="px-3 py-2">
-                                  <Text className="text-sm">{fontSize.label}</Text>
+                                  <Text className="text-sm">{currentFontSizeOption.label}</Text>
                                 </AccordionTrigger>
-                                <AccordionContent className="p-3 border-t border-border max-h-120 overflow-y-auto">
+                                <AccordionContent className="p-3 pb-4 border-t border-border h-auto min-h-[260px] mb-4">
                                   <View className="flex-col gap-2">
                                     {FONT_SIZE_OPTIONS.map((option) => (
                                       <Button
                                         key={option.value}
                                         size="sm"
-                                        variant={fontSize.value === option.value ? 'secondary' : 'ghost'}
+                                        variant={currentFontSizeOption.value === option.value ? 'secondary' : 'ghost'}
                                         className={cn(
                                           'w-full justify-start border border-border rounded-md px-3 py-3 min-h-[56px]',
-                                          fontSize.value === option.value ? 'border-primary' : ''
+                                          currentFontSizeOption.value === option.value ? 'border-primary' : ''
                                         )}
-                                        onPress={() => setFontSize(option)}
+                                        onPress={() => updateFontSize(option.value as 'small' | 'medium' | 'large' | 'xl')}
                                       >
-                                        <Text className={cn(
+                                        <Text 
+                                          disableFontScaling={true}
+                                          className={cn(
                                           option.value === 'small' ? 'text-sm leading-relaxed' :
                                           option.value === 'medium' ? 'text-base leading-relaxed' :
                                           option.value === 'large' ? 'text-lg leading-relaxed' :
@@ -391,7 +432,7 @@ export function SettingsModal({ children }: SettingsModalProps) {
                                     <Text className="text-sm">{accentColor.label}</Text>
                                   </View>
                                 </AccordionTrigger>
-                                <AccordionContent className="p-3 border-t border-border min-h-[260px]">
+                                <AccordionContent className="p-3 border-t border-border">
                                   <View className="flex-row flex-wrap gap-2 justify-center items-center">
                                     {ACCENT_COLOR_OPTIONS.map((option) => (
                                       <Button
@@ -402,7 +443,11 @@ export function SettingsModal({ children }: SettingsModalProps) {
                                           'border rounded-md p-1',
                                           accentColor.value === option.value ? 'border border-primary' : 'border border-border'
                                         )}
-                                        onPress={() => setAccentColor(option)}
+                                        onPress={() => updateAccentColor({
+                                          label: option.label,
+                                          value: option.value,
+                                          hex: option.hex || '#2563EB'
+                                        })}
                                       >
                                         <View
                                           style={{ backgroundColor: option.hex || '#000' }}
@@ -690,7 +735,7 @@ export function SettingsModal({ children }: SettingsModalProps) {
                           <Accordion type="single" collapsible className="border border-border rounded-md p-1">
                             <AccordionItem value="font-size" className="border border-border rounded-md">
                               <AccordionTrigger className="px-3">
-                                <Text className="text-sm">{fontSize.label}</Text>
+                                <Text className="text-sm">{currentFontSizeOption.label}</Text>
                               </AccordionTrigger>
                               <AccordionContent className="p-3 border-t border-border min-h-[260px]">
                                 <View className="flex-col gap-2">
@@ -698,14 +743,16 @@ export function SettingsModal({ children }: SettingsModalProps) {
                                       <Button
                                         key={option.value}
                                         size="sm"
-                                        variant={fontSize.value === option.value ? 'secondary' : 'ghost'}
+                                        variant={currentFontSizeOption.value === option.value ? 'secondary' : 'ghost'}
                                         className={cn(
                                           'w-full justify-start border border-border rounded-md px-3 py-3 min-h-[56px]',
-                                          fontSize.value === option.value ? 'border-primary' : ''
+                                          currentFontSizeOption.value === option.value ? 'border-primary' : ''
                                         )}
-                                        onPress={() => setFontSize(option)}
+                                        onPress={() => updateFontSize(option.value as 'small' | 'medium' | 'large' | 'xl')}
                                       >
-                                        <Text className={cn(
+                                        <Text 
+                                          disableFontScaling={true}
+                                          className={cn(
                                           option.value === 'small' ? 'text-sm leading-relaxed' :
                                           option.value === 'medium' ? 'text-base leading-relaxed' :
                                           option.value === 'large' ? 'text-lg leading-relaxed' :
@@ -751,7 +798,11 @@ export function SettingsModal({ children }: SettingsModalProps) {
                                         'border rounded-md p-1',
                                         accentColor.value === option.value ? 'border border-primary' : 'border border-border'
                                       )}
-                                      onPress={() => setAccentColor(option)}
+                                      onPress={() => updateAccentColor({
+                                        label: option.label,
+                                        value: option.value,
+                                        hex: option.hex || '#2563EB'
+                                      })}
                                     >
                                       <View
                                         style={{ backgroundColor: option.hex || '#000' }}
