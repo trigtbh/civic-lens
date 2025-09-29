@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 
 import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
-import { Switch } from '@/components/ui/switch';
+// import { Switch } from '@/components/ui/switch';
+import { NativeSwitch as Switch } from '@/components/ui/native-switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { THEME } from '@/lib/theme';
 import { SunIcon, SettingsIcon, XIcon, InfoIcon, ChevronRightIcon } from 'lucide-react-native';
