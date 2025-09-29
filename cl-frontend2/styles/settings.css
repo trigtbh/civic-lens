@@ -17,13 +17,7 @@
   --spacing-4: 1rem;
   --spacing-6: 1.5rem;
   
-  /* Default colors - these will be overridden by settings */
-  --primary: 59 130 246;
-  --primary-foreground: 255 255 255;
-  --accent: 245 158 11;
-  --accent-foreground: 255 255 255;
-  --foreground: 0 0 0;
-  --background: 255 255 255;
+  /* Default colors - removing these as we'll use theme.ts instead */
 }
 
 /* Override Tailwind font size classes with our custom properties */
@@ -34,19 +28,7 @@
 .text-xl { font-size: var(--text-xl) !important; }
 .text-2xl { font-size: var(--text-2xl) !important; }
 
-/* Override Tailwind color classes with our custom properties */
-.bg-primary { background-color: rgb(var(--primary)) !important; }
-.text-primary { color: rgb(var(--primary)) !important; }
-.border-primary { border-color: rgb(var(--primary)) !important; }
-.bg-primary-foreground { background-color: rgb(var(--primary-foreground)) !important; }
-.text-primary-foreground { color: rgb(var(--primary-foreground)) !important; }
-.bg-accent { background-color: rgb(var(--accent)) !important; }
-.text-accent { color: rgb(var(--accent)) !important; }
-.border-accent { border-color: rgb(var(--accent)) !important; }
-.bg-accent-foreground { background-color: rgb(var(--accent-foreground)) !important; }
-.text-accent-foreground { color: rgb(var(--accent-foreground)) !important; }
-.text-foreground { color: rgb(var(--foreground)) !important; }
-.bg-background { background-color: rgb(var(--background)) !important; }
+/* Color classes will use NativeWind's built-in theming instead of CSS variables */
 
 /* Override Tailwind spacing classes based on display mode */
 .spacing-compact .p-1 { padding: var(--spacing-1) !important; }

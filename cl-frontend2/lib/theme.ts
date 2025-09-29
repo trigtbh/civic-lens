@@ -1,6 +1,6 @@
 import { DarkTheme, DefaultTheme, type Theme } from '@react-navigation/native';
-import { fontManager } from './fonts';
- 
+import { fontManager } from './fonts'; 
+
 export const THEME = {
   light: {
     background: 'hsl(0 0% 100%)',
@@ -27,10 +27,17 @@ export const THEME = {
     chart3: 'hsl(197 37% 24%)',
     chart4: 'hsl(43 74% 66%)',
     chart5: 'hsl(27 87% 67%)',
+
     // Font families
+
     fontSerif: () => fontManager.getFontFamily('serif'),
+
     fontSans: () => fontManager.getFontFamily('sansSerif'),
+
     fontMono: () => fontManager.getFontFamily('monospace'),
+
+
+
   },
   dark: {
     background: 'hsl(0 0% 3.9%)',
@@ -58,9 +65,14 @@ export const THEME = {
     chart4: 'hsl(280 65% 60%)',
     chart5: 'hsl(340 75% 55%)',
     // Font families
+
     fontSerif: () => fontManager.getFontFamily('serif'),
+
     fontSans: () => fontManager.getFontFamily('sansSerif'),
+
     fontMono: () => fontManager.getFontFamily('monospace'),
+
+
   },
 };
  

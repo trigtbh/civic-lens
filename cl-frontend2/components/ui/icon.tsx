@@ -1,6 +1,8 @@
 import { cn } from '@/lib/utils';
 import type { LucideIcon, LucideProps } from 'lucide-react-native';
 import { cssInterop } from 'nativewind';
+import { useColorScheme } from 'nativewind';
+import { THEME } from '@/lib/theme';
 
 type IconProps = LucideProps & {
   as: LucideIcon;
@@ -25,6 +27,7 @@ cssInterop(IconImpl, {
  *
  * This component allows you to render any Lucide icon while applying utility classes
  * using `nativewind`. It avoids the need to wrap or configure each icon individually.
+ * Icons inherit the theme's foreground color by default but can be overridden with className.
  *
  * @component
  * @example
@@ -40,12 +43,20 @@ cssInterop(IconImpl, {
  * @param {number} size - Icon size (defaults to 14).
  * @param {...LucideProps} ...props - Additional Lucide icon props passed to the "as" icon.
  */
-function Icon({ as: IconComponent, className, size = 14, ...props }: IconProps) {
+function Icon({ as: IconComponent, className, size = 14, style, color, ...props }: IconProps) {
+  const { colorScheme } = useColorScheme();
+  const theme = THEME[colorScheme ?? 'light'];
+  
+  // Use provided color, or fall back to theme foreground
+  const iconColor = color || theme.foreground;
+  
   return (
     <IconImpl
       as={IconComponent}
-      className={cn('text-foreground', className)}
+      className={className}
       size={size}
+      style={style}
+      color={iconColor}
       {...props}
     />
   );

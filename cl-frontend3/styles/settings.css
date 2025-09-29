@@ -1,0 +1,128 @@
+/* Settings-based CSS custom properties and styles */
+
+/* Default font scaling support */
+:root {
+  --font-scale: 1;
+  --text-xs: calc(0.75rem * var(--font-scale));
+  --text-sm: calc(0.875rem * var(--font-scale));
+  --text-base: calc(1rem * var(--font-scale));
+  --text-lg: calc(1.125rem * var(--font-scale));
+  --text-xl: calc(1.25rem * var(--font-scale));
+  --text-2xl: calc(1.5rem * var(--font-scale));
+  
+  /* Default spacing support */
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 0.75rem;
+  --spacing-4: 1rem;
+  --spacing-6: 1.5rem;
+  
+  /* Default colors - these will be overridden by settings */
+  --primary: 59 130 246;
+  --primary-foreground: 255 255 255;
+  --accent: 245 158 11;
+  --accent-foreground: 255 255 255;
+  --foreground: 0 0 0;
+  --background: 255 255 255;
+}
+
+/* Override Tailwind font size classes with our custom properties */
+.text-xs { font-size: var(--text-xs) !important; }
+.text-sm { font-size: var(--text-sm) !important; }
+.text-base { font-size: var(--text-base) !important; }
+.text-lg { font-size: var(--text-lg) !important; }
+.text-xl { font-size: var(--text-xl) !important; }
+.text-2xl { font-size: var(--text-2xl) !important; }
+
+/* Override Tailwind color classes with our custom properties */
+.bg-primary { background-color: rgb(var(--primary)) !important; }
+.text-primary { color: rgb(var(--primary)) !important; }
+.border-primary { border-color: rgb(var(--primary)) !important; }
+.bg-primary-foreground { background-color: rgb(var(--primary-foreground)) !important; }
+.text-primary-foreground { color: rgb(var(--primary-foreground)) !important; }
+.bg-accent { background-color: rgb(var(--accent)) !important; }
+.text-accent { color: rgb(var(--accent)) !important; }
+.border-accent { border-color: rgb(var(--accent)) !important; }
+.bg-accent-foreground { background-color: rgb(var(--accent-foreground)) !important; }
+.text-accent-foreground { color: rgb(var(--accent-foreground)) !important; }
+.text-foreground { color: rgb(var(--foreground)) !important; }
+.bg-background { background-color: rgb(var(--background)) !important; }
+
+/* Override Tailwind spacing classes based on display mode */
+.spacing-compact .p-1 { padding: var(--spacing-1) !important; }
+.spacing-compact .p-2 { padding: var(--spacing-2) !important; }
+.spacing-compact .p-3 { padding: var(--spacing-3) !important; }
+.spacing-compact .p-4 { padding: var(--spacing-4) !important; }
+.spacing-compact .p-6 { padding: var(--spacing-6) !important; }
+.spacing-compact .px-1 { padding-left: var(--spacing-1) !important; padding-right: var(--spacing-1) !important; }
+.spacing-compact .px-2 { padding-left: var(--spacing-2) !important; padding-right: var(--spacing-2) !important; }
+.spacing-compact .px-3 { padding-left: var(--spacing-3) !important; padding-right: var(--spacing-3) !important; }
+.spacing-compact .px-4 { padding-left: var(--spacing-4) !important; padding-right: var(--spacing-4) !important; }
+.spacing-compact .px-6 { padding-left: var(--spacing-6) !important; padding-right: var(--spacing-6) !important; }
+.spacing-compact .py-1 { padding-top: var(--spacing-1) !important; padding-bottom: var(--spacing-1) !important; }
+.spacing-compact .py-2 { padding-top: var(--spacing-2) !important; padding-bottom: var(--spacing-2) !important; }
+.spacing-compact .py-3 { padding-top: var(--spacing-3) !important; padding-bottom: var(--spacing-3) !important; }
+.spacing-compact .py-4 { padding-top: var(--spacing-4) !important; padding-bottom: var(--spacing-4) !important; }
+.spacing-compact .py-6 { padding-top: var(--spacing-6) !important; padding-bottom: var(--spacing-6) !important; }
+.spacing-compact .gap-1 { gap: var(--spacing-1) !important; }
+.spacing-compact .gap-2 { gap: var(--spacing-2) !important; }
+.spacing-compact .gap-3 { gap: var(--spacing-3) !important; }
+.spacing-compact .gap-4 { gap: var(--spacing-4) !important; }
+.spacing-compact .gap-6 { gap: var(--spacing-6) !important; }
+.spacing-compact .space-y-1 > * + * { margin-top: var(--spacing-1) !important; }
+.spacing-compact .space-y-2 > * + * { margin-top: var(--spacing-2) !important; }
+.spacing-compact .space-y-3 > * + * { margin-top: var(--spacing-3) !important; }
+.spacing-compact .space-y-4 > * + * { margin-top: var(--spacing-4) !important; }
+.spacing-compact .space-y-6 > * + * { margin-top: var(--spacing-6) !important; }
+
+.spacing-comfortable .p-1 { padding: var(--spacing-1) !important; }
+.spacing-comfortable .p-2 { padding: var(--spacing-2) !important; }
+.spacing-comfortable .p-3 { padding: var(--spacing-3) !important; }
+.spacing-comfortable .p-4 { padding: var(--spacing-4) !important; }
+.spacing-comfortable .p-6 { padding: var(--spacing-6) !important; }
+.spacing-comfortable .px-1 { padding-left: var(--spacing-1) !important; padding-right: var(--spacing-1) !important; }
+.spacing-comfortable .px-2 { padding-left: var(--spacing-2) !important; padding-right: var(--spacing-2) !important; }
+.spacing-comfortable .px-3 { padding-left: var(--spacing-3) !important; padding-right: var(--spacing-3) !important; }
+.spacing-comfortable .px-4 { padding-left: var(--spacing-4) !important; padding-right: var(--spacing-4) !important; }
+.spacing-comfortable .px-6 { padding-left: var(--spacing-6) !important; padding-right: var(--spacing-6) !important; }
+.spacing-comfortable .py-1 { padding-top: var(--spacing-1) !important; padding-bottom: var(--spacing-1) !important; }
+.spacing-comfortable .py-2 { padding-top: var(--spacing-2) !important; padding-bottom: var(--spacing-2) !important; }
+.spacing-comfortable .py-3 { padding-top: var(--spacing-3) !important; padding-bottom: var(--spacing-3) !important; }
+.spacing-comfortable .py-4 { padding-top: var(--spacing-4) !important; padding-bottom: var(--spacing-4) !important; }
+.spacing-comfortable .py-6 { padding-top: var(--spacing-6) !important; padding-bottom: var(--spacing-6) !important; }
+.spacing-comfortable .gap-1 { gap: var(--spacing-1) !important; }
+.spacing-comfortable .gap-2 { gap: var(--spacing-2) !important; }
+.spacing-comfortable .gap-3 { gap: var(--spacing-3) !important; }
+.spacing-comfortable .gap-4 { gap: var(--spacing-4) !important; }
+.spacing-comfortable .gap-6 { gap: var(--spacing-6) !important; }
+.spacing-comfortable .space-y-1 > * + * { margin-top: var(--spacing-1) !important; }
+.spacing-comfortable .space-y-2 > * + * { margin-top: var(--spacing-2) !important; }
+.spacing-comfortable .space-y-3 > * + * { margin-top: var(--spacing-3) !important; }
+.spacing-comfortable .space-y-4 > * + * { margin-top: var(--spacing-4) !important; }
+.spacing-comfortable .space-y-6 > * + * { margin-top: var(--spacing-6) !important; }
+
+.spacing-spacious .p-1 { padding: var(--spacing-1) !important; }
+.spacing-spacious .p-2 { padding: var(--spacing-2) !important; }
+.spacing-spacious .p-3 { padding: var(--spacing-3) !important; }
+.spacing-spacious .p-4 { padding: var(--spacing-4) !important; }
+.spacing-spacious .p-6 { padding: var(--spacing-6) !important; }
+.spacing-spacious .px-1 { padding-left: var(--spacing-1) !important; padding-right: var(--spacing-1) !important; }
+.spacing-spacious .px-2 { padding-left: var(--spacing-2) !important; padding-right: var(--spacing-2) !important; }
+.spacing-spacious .px-3 { padding-left: var(--spacing-3) !important; padding-right: var(--spacing-3) !important; }
+.spacing-spacious .px-4 { padding-left: var(--spacing-4) !important; padding-right: var(--spacing-4) !important; }
+.spacing-spacious .px-6 { padding-left: var(--spacing-6) !important; padding-right: var(--spacing-6) !important; }
+.spacing-spacious .py-1 { padding-top: var(--spacing-1) !important; padding-bottom: var(--spacing-1) !important; }
+.spacing-spacious .py-2 { padding-top: var(--spacing-2) !important; padding-bottom: var(--spacing-2) !important; }
+.spacing-spacious .py-3 { padding-top: var(--spacing-3) !important; padding-bottom: var(--spacing-3) !important; }
+.spacing-spacious .py-4 { padding-top: var(--spacing-4) !important; padding-bottom: var(--spacing-4) !important; }
+.spacing-spacious .py-6 { padding-top: var(--spacing-6) !important; padding-bottom: var(--spacing-6) !important; }
+.spacing-spacious .gap-1 { gap: var(--spacing-1) !important; }
+.spacing-spacious .gap-2 { gap: var(--spacing-2) !important; }
+.spacing-spacious .gap-3 { gap: var(--spacing-3) !important; }
+.spacing-spacious .gap-4 { gap: var(--spacing-4) !important; }
+.spacing-spacious .gap-6 { gap: var(--spacing-6) !important; }
+.spacing-spacious .space-y-1 > * + * { margin-top: var(--spacing-1) !important; }
+.spacing-spacious .space-y-2 > * + * { margin-top: var(--spacing-2) !important; }
+.spacing-spacious .space-y-3 > * + * { margin-top: var(--spacing-3) !important; }
+.spacing-spacious .space-y-4 > * + * { margin-top: var(--spacing-4) !important; }
+.spacing-spacious .space-y-6 > * + * { margin-top: var(--spacing-6) !important; }
