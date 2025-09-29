@@ -53,6 +53,10 @@ export default function Screen() {
   const { getScaledFontSize, getSpacing } = useSettings();
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   
+  // Default neutral text color with !important to override theme classes
+  const neutralTextColor = colorScheme === 'dark' ? '#ffffff' : '#000000';
+  const neutralTextStyle = { color: neutralTextColor, fontStyle: 'normal' };
+  
   // ===== SAMPLE STATE FOR DEMONSTRATING COMPONENTS =====
   const [switchValue, setSwitchValue] = useState(false);
   const [selectValue, setSelectValue] = useState('option1');
@@ -93,13 +97,13 @@ export default function Screen() {
           <Image source={LOGO[colorScheme ?? 'light']} style={IMAGE_STYLE} resizeMode="contain" />
           <View className="items-center gap-4">
             <View className="flex-row items-center gap-3">
-              <Icon as={HomeIcon} className="size-6 text-primary" />
+              <Icon as={HomeIcon} className="size-6" />
               <Text 
                 style={{ 
                   fontFamily: THEME[colorScheme ?? 'light'].fontSerif(),
                   fontSize: getScaledFontSize(24)
                 }}
-                className="font-semibold text-foreground"
+                className="font-semibold"
               >
                 Welcome to Civic Lens
               </Text>
@@ -108,13 +112,13 @@ export default function Screen() {
           <View className="gap-2 p-4">
             <Text 
               style={{ fontSize: getScaledFontSize(14) }}
-              className="ios:text-foreground font-mono text-muted-foreground"
+              className="font-mono"
             >
               1. Edit <Text variant="code" style={{ fontSize: getScaledFontSize(14) }}>app/index.tsx</Text> to get started.
             </Text>
             <Text 
               style={{ fontSize: getScaledFontSize(14) }}
-              className="ios:text-foreground font-mono text-muted-foreground"
+              className="font-mono"
             >
               2. Save to see your changes instantly.
             </Text>
@@ -137,8 +141,11 @@ export default function Screen() {
         {/* ===== COMPONENT SAMPLES SECTION ===== */}
         <View className="gap-8 p-4 border-t border-border">
           <Text 
-            style={{ fontSize: getScaledFontSize(20) }}
-            className="font-bold text-center text-foreground"
+            style={{ 
+              fontSize: getScaledFontSize(20),
+              color: neutralTextColor
+            }}
+            className="font-bold text-center"
           >
             🧩 Component Samples
           </Text>
@@ -146,29 +153,47 @@ export default function Screen() {
           {/* ===== ICON SAMPLES ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 Icon Component Samples</Text>
             <View className="flex-row flex-wrap gap-4 items-center">
               <View className="items-center gap-2">
-                <Icon as={SunIcon} className="size-6 text-yellow-500" />
-                <Text style={{ fontSize: getScaledFontSize(12) }} className="text-muted-foreground">SunIcon</Text>
+                <Icon as={SunIcon} className="size-6" />
+                <Text style={{ 
+                  fontSize: getScaledFontSize(12),
+                  color: neutralTextColor
+                }}>SunIcon</Text>
               </View>
               <View className="items-center gap-2">
-                <Icon as={SettingsIcon} className="size-6 text-blue-500" />
-                <Text style={{ fontSize: getScaledFontSize(12) }} className="text-muted-foreground">SettingsIcon</Text>
+                <Icon as={SettingsIcon} className="size-6" />
+                <Text style={{ 
+                  fontSize: getScaledFontSize(12),
+                  color: neutralTextColor
+                }}>SettingsIcon</Text>
               </View>
               <View className="items-center gap-2">
-                <Icon as={XIcon} className="size-6 text-red-500" />
-                <Text style={{ fontSize: getScaledFontSize(12) }} className="text-muted-foreground">XIcon</Text>
+                <Icon as={XIcon} className="size-6" />
+                <Text style={{ 
+                  fontSize: getScaledFontSize(12),
+                  color: neutralTextColor
+                }}>XIcon</Text>
               </View>
               <View className="items-center gap-2">
-                <Icon as={InfoIcon} className="size-6 text-green-500" />
-                <Text style={{ fontSize: getScaledFontSize(12) }} className="text-muted-foreground">InfoIcon</Text>
+                <Icon as={InfoIcon} className="size-6" />
+                <Text style={{ 
+                  fontSize: getScaledFontSize(12),
+                  color: neutralTextColor
+                }}>InfoIcon</Text>
               </View>
               <View className="items-center gap-2">
-                <Icon as={ChevronRightIcon} className="size-6 text-purple-500" />
-                <Text style={{ fontSize: getScaledFontSize(12) }} className="text-muted-foreground">ChevronRightIcon</Text>
+                <Icon as={ChevronRightIcon} className="size-6" />
+                <Text style={{ 
+                  fontSize: getScaledFontSize(12),
+                  color: neutralTextColor
+                }}>ChevronRightIcon</Text>
               </View>
             </View>
           </View>
@@ -176,56 +201,82 @@ export default function Screen() {
           {/* ===== TEXT COMPONENT SAMPLES ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 Text Component Samples</Text>
             <View className="gap-3">
-              <Text style={{ fontSize: getScaledFontSize(16) }} className="text-foreground">Default Text</Text>
+              <Text style={{ 
+                fontSize: getScaledFontSize(16),
+                color: neutralTextColor
+              }}>Default Text</Text>
               <Text variant="code" style={{ fontSize: getScaledFontSize(16) }}>Code Variant Text</Text>
               <Text 
-                style={{ fontSize: getScaledFontSize(18) }}
-                className="font-bold text-primary"
-              >Large Bold Primary Text</Text>
+                style={{ 
+                  fontSize: getScaledFontSize(18),
+                  color: neutralTextColor
+                }}
+                className="font-bold"
+              >Large Bold Text</Text>
               <Text 
-                style={{ fontSize: getScaledFontSize(14) }}
-                className="text-muted-foreground"
-              >Small Muted Text</Text>
+                style={{ 
+                  fontSize: getScaledFontSize(14),
+                  color: neutralTextColor
+                }}
+              >Small Text</Text>
             </View>
           </View>
 
           {/* ===== COLOR SCHEME TEST ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >🎨 Color Scheme Test</Text>
             <View className="gap-3">
               <View className="flex-row gap-3">
-                <View className="bg-primary p-4 rounded-lg flex-1">
+                <View className="bg-muted p-4 rounded-lg flex-1">
                   <Text 
-                    style={{ fontSize: getScaledFontSize(16) }}
-                    className="text-primary-foreground text-center font-bold"
-                  >Primary Color</Text>
+                    style={{ 
+                      fontSize: getScaledFontSize(16),
+                      color: neutralTextColor
+                    }}
+                    className="text-center font-bold"
+                  >Muted Color</Text>
                 </View>
-                <View className="bg-accent p-4 rounded-lg flex-1">
+                <View className="bg-muted p-4 rounded-lg flex-1">
                   <Text 
-                    style={{ fontSize: getScaledFontSize(16) }}
-                    className="text-accent-foreground text-center font-bold"
-                  >Accent Color</Text>
+                    style={{ 
+                      fontSize: getScaledFontSize(16),
+                      color: neutralTextColor
+                    }}
+                    className="text-center font-bold"
+                  >Muted Color</Text>
                 </View>
               </View>
               <View className="flex-row gap-3">
-                <View className="border border-primary p-3 rounded-lg flex-1">
+                <View className="border border-border p-3 rounded-lg flex-1">
                   <Text 
-                    style={{ fontSize: getScaledFontSize(16) }}
-                    className="text-primary text-center"
-                  >Primary Border</Text>
+                    style={{ 
+                      fontSize: getScaledFontSize(16),
+                      color: neutralTextColor
+                    }}
+                    className="text-center"
+                  >Border</Text>
                 </View>
-                <View className="border border-accent p-3 rounded-lg flex-1">
+                <View className="border border-border p-3 rounded-lg flex-1">
                   <Text 
-                    style={{ fontSize: getScaledFontSize(16) }}
-                    className="text-accent text-center"
-                  >Accent Border</Text>
+                    style={{ 
+                      fontSize: getScaledFontSize(16),
+                      color: neutralTextColor
+                    }}
+                    className="text-center"
+                  >Border</Text>
                 </View>
               </View>
             </View>
@@ -234,16 +285,37 @@ export default function Screen() {
           {/* ===== FONT SIZE TEST ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📝 Font Size Test</Text>
             <View className="gap-2">
-              <Text style={{ fontSize: getScaledFontSize(12) }} className="text-foreground">Extra Small (scaled 12px)</Text>
-              <Text style={{ fontSize: getScaledFontSize(14) }} className="text-foreground">Small (scaled 14px)</Text>
-              <Text style={{ fontSize: getScaledFontSize(16) }} className="text-foreground">Base (scaled 16px)</Text>
-              <Text style={{ fontSize: getScaledFontSize(18) }} className="text-foreground">Large (scaled 18px)</Text>
-              <Text style={{ fontSize: getScaledFontSize(20) }} className="text-foreground">Extra Large (scaled 20px)</Text>
-              <Text style={{ fontSize: getScaledFontSize(24) }} className="text-foreground">2X Large (scaled 24px)</Text>
+              <Text style={{ 
+                fontSize: getScaledFontSize(12),
+                color: neutralTextColor
+              }}>Extra Small (scaled 12px)</Text>
+              <Text style={{ 
+                fontSize: getScaledFontSize(14),
+                color: neutralTextColor
+              }}>Small (scaled 14px)</Text>
+              <Text style={{ 
+                fontSize: getScaledFontSize(16),
+                color: neutralTextColor
+              }}>Base (scaled 16px)</Text>
+              <Text style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}>Large (scaled 18px)</Text>
+              <Text style={{ 
+                fontSize: getScaledFontSize(20),
+                color: neutralTextColor
+              }}>Extra Large (scaled 20px)</Text>
+              <Text style={{ 
+                fontSize: getScaledFontSize(24),
+                color: neutralTextColor
+              }}>2X Large (scaled 24px)</Text>
             </View>
           </View>
 
@@ -289,8 +361,11 @@ export default function Screen() {
           {/* ===== MODAL COMPONENT SAMPLE ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 Modal Component Sample</Text>
             <Button onPress={() => setModalVisible(true)}>
               <Text>Open Sample Modal</Text>
@@ -300,21 +375,29 @@ export default function Screen() {
           {/* ===== SCROLLVIEW SAMPLE ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 ScrollView Sample</Text>
             <Text 
-              style={{ fontSize: getScaledFontSize(14) }}
-              className="text-muted-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(14),
+                color: neutralTextColor
+              }}
             >This entire page is wrapped in a ScrollView!</Text>
             <View className="h-32 border border-border rounded-lg">
               <ScrollView className="flex-1 p-3" horizontal>
                 <View className="flex-row gap-4">
                   {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
-                    <View key={item} className="w-20 h-20 bg-primary/20 rounded-lg items-center justify-center">
+                    <View key={item} className="w-20 h-20 bg-muted/20 rounded-lg items-center justify-center">
                       <Text 
-                        style={{ fontSize: getScaledFontSize(16) }}
-                        className="text-foreground font-bold"
+                        style={{ 
+                          fontSize: getScaledFontSize(16),
+                          color: neutralTextColor
+                        }}
+                        className="font-bold"
                       >{item}</Text>
                     </View>
                   ))}
@@ -326,21 +409,30 @@ export default function Screen() {
           {/* ===== DIMENSIONS SAMPLE ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 Dimensions Sample</Text>
             <View className="gap-2">
               <Text 
-                style={{ fontSize: getScaledFontSize(16) }}
-                className="text-foreground"
+                style={{ 
+                  fontSize: getScaledFontSize(16),
+                  color: neutralTextColor
+                }}
               >Screen Width: {screenDimensions.width}px</Text>
               <Text 
-                style={{ fontSize: getScaledFontSize(16) }}
-                className="text-foreground"
+                style={{ 
+                  fontSize: getScaledFontSize(16),
+                  color: neutralTextColor
+                }}
               >Screen Height: {screenDimensions.height}px</Text>
               <Text 
-                style={{ fontSize: getScaledFontSize(14) }}
-                className="text-muted-foreground"
+                style={{ 
+                  fontSize: getScaledFontSize(14),
+                  color: neutralTextColor
+                }}
               >Rotate your device to see values change!</Text>
             </View>
           </View>
@@ -348,12 +440,17 @@ export default function Screen() {
           {/* ===== USEEFFECT SAMPLE ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 useEffect Sample</Text>
             <Text 
-              style={{ fontSize: getScaledFontSize(14) }}
-              className="text-muted-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(14),
+                color: neutralTextColor
+              }}
             >
               useEffect is being used to listen to screen dimension changes. 
               The effect runs when the component mounts and cleans up when it unmounts.
@@ -363,22 +460,27 @@ export default function Screen() {
           {/* ===== THEME SAMPLE ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 THEME Object Sample</Text>
             <View className="gap-2">
               <Text 
                 style={{ 
                   fontFamily: THEME[colorScheme ?? 'light'].fontSerif(),
-                  fontSize: getScaledFontSize(16)
+                  fontSize: getScaledFontSize(16),
+                  color: neutralTextColor
                 }}
-                className="text-foreground"
               >
                 This text uses THEME.fontSerif()
               </Text>
               <Text 
-                style={{ fontSize: getScaledFontSize(14) }}
-                className="text-muted-foreground"
+                style={{ 
+                  fontSize: getScaledFontSize(14),
+                  color: neutralTextColor
+                }}
               >
                 Current color scheme: {colorScheme ?? 'light'}
               </Text>
@@ -388,18 +490,25 @@ export default function Screen() {
           {/* ===== USECOLORSCHEME SAMPLE ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 useColorScheme Sample</Text>
             <Text 
-              style={{ fontSize: getScaledFontSize(14) }}
-              className="text-muted-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(14),
+                color: neutralTextColor
+              }}
             >
               Current color scheme from hook: {colorScheme ?? 'light'}
             </Text>
             <Text 
-              style={{ fontSize: getScaledFontSize(14) }}
-              className="text-muted-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(14),
+                color: neutralTextColor
+              }}
             >
               Toggle the theme using the button in the header!
             </Text>
@@ -408,32 +517,43 @@ export default function Screen() {
           {/* ===== VIEW COMPONENT SAMPLE ===== */}
           <View className="gap-4 p-4 bg-muted/20 rounded-lg">
             <Text 
-              style={{ fontSize: getScaledFontSize(18) }}
-              className="font-semibold text-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(18),
+                color: neutralTextColor
+              }}
+              className="font-semibold"
             >📍 View Component Sample</Text>
             <Text 
-              style={{ fontSize: getScaledFontSize(14) }}
-              className="text-muted-foreground"
+              style={{ 
+                fontSize: getScaledFontSize(14),
+                color: neutralTextColor
+              }}
             >
               Every container you see here is a View component with different styling!
             </Text>
             <View className="flex-row gap-2">
-              <View className="flex-1 h-12 bg-red-500/20 rounded-lg items-center justify-center">
+              <View className="flex-1 h-12 bg-muted/20 rounded-lg items-center justify-center">
                 <Text 
-                  style={{ fontSize: getScaledFontSize(12) }}
-                  className="text-foreground"
+                  style={{ 
+                    fontSize: getScaledFontSize(12),
+                    color: neutralTextColor
+                  }}
                 >View 1</Text>
               </View>
-              <View className="flex-1 h-12 bg-blue-500/20 rounded-lg items-center justify-center">
+              <View className="flex-1 h-12 bg-muted/20 rounded-lg items-center justify-center">
                 <Text 
-                  style={{ fontSize: getScaledFontSize(12) }}
-                  className="text-foreground"
+                  style={{ 
+                    fontSize: getScaledFontSize(12),
+                    color: neutralTextColor
+                  }}
                 >View 2</Text>
               </View>
-              <View className="flex-1 h-12 bg-green-500/20 rounded-lg items-center justify-center">
+              <View className="flex-1 h-12 bg-muted/20 rounded-lg items-center justify-center">
                 <Text 
-                  style={{ fontSize: getScaledFontSize(12) }}
-                  className="text-foreground"
+                  style={{ 
+                    fontSize: getScaledFontSize(12),
+                    color: neutralTextColor
+                  }}
                 >View 3</Text>
               </View>
             </View>
@@ -452,8 +572,11 @@ export default function Screen() {
           <View className="bg-background rounded-2xl p-6 w-full max-w-sm border border-border">
             <View className="flex-row items-center justify-between mb-4">
               <Text 
-                style={{ fontSize: getScaledFontSize(18) }}
-                className="font-semibold text-foreground"
+                style={{ 
+                  fontSize: getScaledFontSize(18),
+                  color: neutralTextColor
+                }}
+                className="font-semibold"
               >Sample Modal</Text>
               <Button
                 onPress={() => setModalVisible(false)}
@@ -465,8 +588,11 @@ export default function Screen() {
               </Button>
             </View>
             <Text 
-              style={{ fontSize: getScaledFontSize(16) }}
-              className="text-muted-foreground mb-4"
+              style={{ 
+                fontSize: getScaledFontSize(16),
+                color: neutralTextColor
+              }}
+              className="mb-4"
             >
               This is a sample modal showing how the Modal component works!
             </Text>
@@ -485,16 +611,17 @@ export default function Screen() {
 function HeaderTitle() {
   const { colorScheme } = useColorScheme();
   const { getScaledFontSize } = useSettings();
+  const neutralTextColor = colorScheme === 'dark' ? '#ffffff' : '#000000';
   
   return (
     <View className="flex-row items-center gap-2">
-      <Icon as={HomeIcon} className="size-5 text-primary" />
+      <Icon as={HomeIcon} className="size-5" />
       <Text 
         style={{ 
           fontFamily: THEME[colorScheme ?? 'light'].fontSerif(),
           fontSize: getScaledFontSize(20),
           fontWeight: '600',
-          color: THEME[colorScheme ?? 'light'].foreground
+          color: neutralTextColor
         }}
       >
         Civic Lens

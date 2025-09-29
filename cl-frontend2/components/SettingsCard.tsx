@@ -47,8 +47,8 @@ function AnimatedSelectItem({ item, selectKey, isExpanded, onToggle, onSelect, c
   // Calculate expanded height based on options
   const expandedHeight = (item.options?.length || 0) * 48 + 8;
   
-  // Text color based on theme
-  const textColor = colorScheme === 'dark' ? '#ffffff' : '#000000';
+  // Text color based on theme - use neutral colors
+  const neutralTextColor = colorScheme === 'dark' ? '#ffffff' : '#000000';
   
   useEffect(() => {
     animatedHeight.value = withTiming(isExpanded ? expandedHeight : 48, {
@@ -84,7 +84,10 @@ function AnimatedSelectItem({ item, selectKey, isExpanded, onToggle, onSelect, c
   
   return (
     <View className={className}>
-      <Text className="text-base text-foreground mb-3">{item.label}</Text>
+      <Text 
+        className="text-base mb-3"
+        style={{ color: neutralTextColor }}
+      >{item.label}</Text>
       <Animated.View 
         className="rounded-xl bg-background overflow-hidden"
         style={[animatedStyle, animatedBorderStyle]}
@@ -95,10 +98,10 @@ function AnimatedSelectItem({ item, selectKey, isExpanded, onToggle, onSelect, c
             onPress={onToggle}
             className="w-full p-3 flex-row justify-between items-center h-12"
           >
-            <Text className="text-foreground">
+            <Text style={{ color: neutralTextColor }}>
               {item.options?.find(opt => opt.value === item.value)?.label || item.value}
             </Text>
-            <Icon as={ChevronRightIcon} className="size-4 text-muted-foreground" />
+            <Icon as={ChevronRightIcon} className="size-4" />
           </Pressable>
         ) : (
           /* Expanded state - show all options */
@@ -119,15 +122,18 @@ function AnimatedSelectItem({ item, selectKey, isExpanded, onToggle, onSelect, c
                   <Text 
                     className={`flex-1 text-base ${
                       item.value === option.value 
-                        ? 'text-accent-foreground font-semibold' 
-                        : 'text-foreground font-medium'
+                        ? 'font-semibold' 
+                        : 'font-medium'
                     }`}
-                    style={{ fontSize: getScaledFontSize(16) }}
+                    style={{ 
+                      fontSize: getScaledFontSize(16),
+                      color: neutralTextColor
+                    }}
                   >
                     {option.label}
                   </Text>
                   {item.value === option.value && (
-                    <View className="size-2 rounded-full ml-3" style={{ backgroundColor: '#3B82F6' }} />
+                    <View className="size-2 rounded-full ml-3" style={{ backgroundColor: neutralTextColor === '#ffffff' ? '#ffffff' : '#000000' }} />
                   )}
                 </View>
               </Pressable>
@@ -162,8 +168,8 @@ function AnimatedSelectItemDesktop({ item, selectKey, isExpanded, onToggle, onSe
   // Calculate expanded height based on options
   const expandedHeight = (item.options?.length || 0) * 48 + 8;
   
-  // Text color based on theme
-  const textColor = colorScheme === 'dark' ? '#ffffff' : '#000000';
+  // Text color based on theme - use neutral colors
+  const neutralTextColor = colorScheme === 'dark' ? '#ffffff' : '#000000';
   
   useEffect(() => {
     animatedHeight.value = withTiming(isExpanded ? expandedHeight : 48, {
@@ -205,8 +211,11 @@ function AnimatedSelectItemDesktop({ item, selectKey, isExpanded, onToggle, onSe
       }}
     >
       <Text 
-        className="text-base text-foreground pt-3"
-        style={{ fontSize: getScaledFontSize(16) }}
+        className="text-base pt-3"
+        style={{ 
+          fontSize: getScaledFontSize(16),
+          color: neutralTextColor
+        }}
       >
         {item.label}
       </Text>
@@ -223,7 +232,7 @@ function AnimatedSelectItemDesktop({ item, selectKey, isExpanded, onToggle, onSe
             <Text 
               className="flex-1" 
               style={{ 
-                color: textColor,
+                color: neutralTextColor,
                 fontSize: getScaledFontSize(16)
               }}
             >
@@ -247,15 +256,18 @@ function AnimatedSelectItemDesktop({ item, selectKey, isExpanded, onToggle, onSe
                 }`}
               >
                 <View className="flex-row items-center justify-between">
-                  <Text className={`flex-1 text-base ${
-                    item.value === option.value 
-                      ? 'text-accent-foreground font-semibold' 
-                      : 'text-foreground font-medium'
-                  }`}>
+                  <Text 
+                    className={`flex-1 text-base ${
+                      item.value === option.value 
+                        ? 'font-semibold' 
+                        : 'font-medium'
+                    }`}
+                    style={{ color: neutralTextColor }}
+                  >
                     {option.label}
                   </Text>
                   {item.value === option.value && (
-                    <View className="size-2 rounded-full ml-3" style={{ backgroundColor: '#3B82F6' }} />
+                    <View className="size-2 rounded-full ml-3" style={{ backgroundColor: neutralTextColor === '#ffffff' ? '#ffffff' : '#000000' }} />
                   )}
                 </View>
               </Pressable>
@@ -286,6 +298,9 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
   const { fontScale, spacingMode, updateFontScale, updateSpacingMode, getScaledFontSize, getSpacing } = useSettings();
   const [selectedCategory, setSelectedCategory] = useState('appearance');
   const [screenDimensions, setScreenDimensions] = useState(Dimensions.get('window'));
+
+  // Default neutral text color to override theme colors
+  const neutralTextColor = colorScheme === 'dark' ? '#ffffff' : '#000000';
 
   // Storage keys
   const STORAGE_KEYS = {
@@ -745,10 +760,13 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
               <View className="border-b border-border">
                 <View className="flex-row items-center justify-between p-4 border-b border-border">
                   <View className="flex-row items-center gap-2">
-                    <Icon as={SettingsIcon} className="size-5 text-primary" />
+                    <Icon as={SettingsIcon} className="size-5" />
                     <Text 
-                      style={{ fontFamily: THEME[colorScheme ?? 'light'].fontSerif() }}
-                      className="text-lg font-semibold text-foreground"
+                      style={{ 
+                        fontFamily: THEME[colorScheme ?? 'light'].fontSerif(),
+                        color: neutralTextColor
+                      }}
+                      className="text-lg font-semibold"
                     >
                       Settings
                     </Text>
@@ -781,14 +799,13 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                       >
                         <Icon 
                           as={category.icon} 
-                          className={`size-4 ${
-                            selectedCategory === category.id ? 'text-primary-foreground' : 'text-muted-foreground'
-                          }`} 
+                          className="size-4" 
                         />
                         <Text 
-                          className={`text-sm font-medium ${
-                            selectedCategory === category.id ? 'text-primary-foreground' : 'text-foreground'
-                          }`}
+                          className="text-sm font-medium"
+                          style={{ 
+                            color: selectedCategory === category.id ? '#ffffff' : neutralTextColor
+                          }}
                         >
                           {category.label}
                         </Text>
@@ -809,8 +826,14 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                           key={index}
                           className="flex-row justify-between items-center p-6 rounded-xl bg-muted/10 border border-border/30 min-h-[70px]"
                         >
-                          <Text className="text-base text-foreground flex-1">{item.label}</Text>
-                          <Text className="text-sm text-muted-foreground ml-4 font-medium">{item.value}</Text>
+                          <Text 
+                            className="text-base flex-1"
+                            style={{ color: neutralTextColor }}
+                          >{item.label}</Text>
+                          <Text 
+                            className="text-sm ml-4 font-medium"
+                            style={{ color: neutralTextColor }}
+                          >{item.value}</Text>
                         </View>
                       );
                     }
@@ -822,7 +845,10 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                           key={index}
                           className="flex-row justify-between items-center p-6 rounded-xl bg-muted/10 border border-border/30 min-h-[70px]"
                         >
-                          <Text className="text-base text-foreground flex-1">{item.label}</Text>
+                          <Text 
+                            className="text-base flex-1"
+                            style={{ color: neutralTextColor }}
+                          >{item.label}</Text>
                           <Switch
                             checked={item.value}
                             onCheckedChange={item.onChange}
@@ -872,14 +898,20 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                           }}
                         >
                           <Text 
-                            className="text-sm font-medium text-blue-700"
-                            style={{ fontSize: (global.fontScale || 1) * 14 }}
+                            className="text-sm font-medium"
+                            style={{ 
+                              fontSize: (global.fontScale || 1) * 14,
+                              color: neutralTextColor
+                            }}
                           >
                             {item.label}
                           </Text>
                           <Text 
-                            className="text-sm text-blue-600 mt-1"
-                            style={{ fontSize: (global.fontScale || 1) * 12 }}
+                            className="text-sm mt-1"
+                            style={{ 
+                              fontSize: (global.fontScale || 1) * 12,
+                              color: neutralTextColor
+                            }}
                           >
                             {item.value}
                           </Text>
@@ -897,8 +929,11 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                           item.onPress && item.onPress();
                         }}
                       >
-                        <Text className="text-base text-foreground flex-1">{item.label}</Text>
-                        <Icon as={ChevronRightIcon} className="size-4 text-muted-foreground" />
+                        <Text 
+                          className="text-base flex-1"
+                          style={{ color: neutralTextColor }}
+                        >{item.label}</Text>
+                        <Icon as={ChevronRightIcon} className="size-4" />
                       </Button>
                     );
                   })}
@@ -913,10 +948,13 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                 {/* Sidebar Header */}
                 <View className="p-4 border-b border-border">
                   <View className="flex-row items-center gap-2">
-                    <Icon as={SettingsIcon} className="size-5 text-primary" />
+                    <Icon as={SettingsIcon} className="size-5" />
                     <Text 
-                      style={{ fontFamily: THEME[colorScheme ?? 'light'].fontSerif() }}
-                      className="text-lg font-semibold text-foreground"
+                      style={{ 
+                        fontFamily: THEME[colorScheme ?? 'light'].fontSerif(),
+                        color: neutralTextColor
+                      }}
+                      className="text-lg font-semibold"
                     >
                       Settings
                     </Text>
@@ -939,14 +977,14 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                     >
                       <Icon 
                         as={category.icon} 
-                        className={`size-4 ${
-                          selectedCategory === category.id ? 'text-primary-foreground' : 'text-muted-foreground'
-                        }`} 
+                        className="size-4" 
                       />
                       <Text 
-                        className={`text-sm ${
-                          selectedCategory === category.id ? 'text-primary-foreground font-medium' : 'text-foreground'
-                        }`}
+                        className="text-sm"
+                        style={{ 
+                          color: selectedCategory === category.id ? '#ffffff' : neutralTextColor,
+                          fontWeight: selectedCategory === category.id ? '500' : '400'
+                        }}
                       >
                         {category.label}
                       </Text>
@@ -960,8 +998,11 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                 {/* Main Header */}
                 <View className="flex-row items-center justify-between p-6 border-b border-border">
                   <Text 
-                    style={{ fontFamily: THEME[colorScheme ?? 'light'].fontSerif() }}
-                    className="text-xl font-semibold text-foreground capitalize"
+                    style={{ 
+                      fontFamily: THEME[colorScheme ?? 'light'].fontSerif(),
+                      color: neutralTextColor
+                    }}
+                    className="text-xl font-semibold capitalize"
                   >
                     {categories.find(cat => cat.id === selectedCategory)?.label}
                   </Text>
@@ -986,8 +1027,14 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                             key={index}
                             className="flex-row justify-between items-center p-4 rounded-xl bg-muted/10 border border-border/30"
                           >
-                            <Text className="text-base text-foreground">{item.label}</Text>
-                            <Text className="text-sm text-muted-foreground font-medium">{item.value}</Text>
+                            <Text 
+                              className="text-base"
+                              style={{ color: neutralTextColor }}
+                            >{item.label}</Text>
+                            <Text 
+                              className="text-sm font-medium"
+                              style={{ color: neutralTextColor }}
+                            >{item.value}</Text>
                           </View>
                         );
                       }
@@ -999,7 +1046,10 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                             key={index}
                             className="flex-row justify-between items-center p-4 rounded-xl bg-muted/10 border border-border/30"
                           >
-                            <Text className="text-base text-foreground">{item.label}</Text>
+                            <Text 
+                              className="text-base"
+                              style={{ color: neutralTextColor }}
+                            >{item.label}</Text>
                             <Switch
                               checked={item.value}
                               onCheckedChange={item.onChange}
@@ -1047,8 +1097,11 @@ export function SettingsCard({ isOpen, onClose }: SettingsCardProps) {
                             item.onPress && item.onPress();
                           }}
                         >
-                          <Text className="text-base text-foreground">{item.label}</Text>
-                          <Icon as={ChevronRightIcon} className="size-4 text-muted-foreground" />
+                          <Text 
+                            className="text-base"
+                            style={{ color: neutralTextColor }}
+                          >{item.label}</Text>
+                          <Icon as={ChevronRightIcon} className="size-4" />
                         </Button>
                       );
                       })}
