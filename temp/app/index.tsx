@@ -3,10 +3,11 @@ import { Icon } from '@/components/ui/icon';
 import { Text } from '@/components/ui/text';
 import { THEME } from '@/lib/theme';
 import { Link, Stack } from 'expo-router';
-import { MoonStarIcon, StarIcon, SunIcon } from 'lucide-react-native';
+import { MoonStarIcon, StarIcon, SunIcon, SettingsIcon } from 'lucide-react-native';
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
 import { Image, type ImageStyle, View } from 'react-native';
+import { SettingsModal } from '@/components/SettingsModal';
 
 const LOGO = {
   light: require('@/assets/images/react-native-reusables-light.png'),
@@ -19,6 +20,7 @@ const SCREEN_OPTIONS = {
     headerTransparent: true,
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.light.background },
+    headerLeft: () => <SettingsButton />,
     headerRight: () => <ThemeToggle />,
   },
   dark: {
@@ -26,6 +28,7 @@ const SCREEN_OPTIONS = {
     headerTransparent: true,
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.dark.background },
+    headerLeft: () => <SettingsButton />,
     headerRight: () => <ThemeToggle />,
   },
 };
@@ -85,5 +88,18 @@ function ThemeToggle() {
       className="rounded-full web:mx-4">
       <Icon as={THEME_ICONS[colorScheme ?? 'light']} className="size-5" />
     </Button>
+  );
+}
+
+function SettingsButton() {
+  return (
+    <SettingsModal>
+      <Button
+        size="icon"
+        variant="ghost"
+        className="rounded-full web:mx-4">
+        <Icon as={SettingsIcon} className="size-5" />
+      </Button>
+    </SettingsModal>
   );
 }
