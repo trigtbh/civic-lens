@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils';
+import { fontManager } from '@/lib/fonts';
 import * as Slot from '@rn-primitives/slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
@@ -68,6 +69,7 @@ function Text({
   className,
   asChild = false,
   variant = 'default',
+  style,
   ...props
 }: React.ComponentProps<typeof RNText> &
   TextVariantProps &
@@ -76,9 +78,30 @@ function Text({
   }) {
   const textClass = React.useContext(TextClassContext);
   const Component = asChild ? Slot.Text : RNText;
+  
+  // Get appropriate font family based on variant
+  const getFontFamily = () => {
+    switch (variant) {
+      case 'code':
+        return fontManager.getFontFamily('monospace');
+      case 'h1':
+      case 'h2':
+      case 'h3':
+      case 'h4':
+        return fontManager.getFontFamily('serif');
+      default:
+        return fontManager.getFontFamily('sansSerif');
+    }
+  };
+
+  const fontStyle = {
+    fontFamily: getFontFamily(),
+  };
+
   return (
     <Component
       className={cn(textVariants({ variant }), textClass, className)}
+      style={[fontStyle, style]}
       role={variant ? ROLE[variant] : undefined}
       aria-level={variant ? ARIA_LEVEL[variant] : undefined}
       {...props}
