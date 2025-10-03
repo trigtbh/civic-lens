@@ -195,7 +195,7 @@ function Text({
         // eslint-disable-next-line no-console
         console.log('[Text] starting translation fetch for', cacheKey);
         console.log(target);
-        let target2 = "zh";
+        let target2 = "en";
         try {
           const resp = await fetch('https://translate.civiclens.app/translate', {
             method: 'POST',
