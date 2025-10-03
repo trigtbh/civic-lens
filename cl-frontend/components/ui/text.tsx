@@ -228,7 +228,7 @@ function Text({
         console.log(target);
         // let target2 = "en";
         try {
-          const resp = await fetch('https://civiclens.app/translate', {
+          const resp = await fetch('https://civiclens.app/api/translate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ text: text, source: 'en', target: target }),

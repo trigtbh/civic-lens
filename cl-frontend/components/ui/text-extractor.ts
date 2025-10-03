@@ -53,7 +53,7 @@ export function addTextsFromNode(node: React.ReactNode): string[] {
       ];
       for (const key of commonKeys) {
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const val = (props as any)[key];  
+        const val = (props as any)[key];
         if (val === null || val === undefined) continue;
         if (typeof val === 'string' || typeof val === 'number') {
           const s = addString(val);
