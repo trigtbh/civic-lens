@@ -1,0 +1,237 @@
+{
+  "sq": {
+    "language": "Albanian",
+    "endonym": "Shqip",
+    "flag": "🇦🇱"
+  },
+  "fa": {
+    "language": "Persian",
+    "endonym": "فارسی",
+    "flag": "🇮🇷"
+  },
+  "ar": {
+    "language": "Arabic",
+    "endonym": "العربية",
+    "flag": "🇸🇦"
+  },
+  "az": {
+    "language": "Azerbaijani",
+    "endonym": "Azərbaycan Dili",
+    "flag": "🇦🇿"
+  },
+  "eu": {
+    "language": "Basque",
+    "endonym": "Euskara",
+    "flag": "🇪🇸"
+  },
+  "bn": {
+    "language": "Bengali",
+    "endonym": "বাংলা",
+    "flag": "🇧🇩"
+  },
+  "bg": {
+    "language": "Bulgarian",
+    "endonym": "Български",
+    "flag": "🇧🇬"
+  },
+  "ca": {
+    "language": "Catalan",
+    "endonym": "Català",
+    "flag": "🇪🇸"
+  },
+  "cs": {
+    "language": "Czech",
+    "endonym": "Čeština",
+    "flag": "🇨🇿"
+  },
+  "da": {
+    "language": "Danish",
+    "endonym": "Dansk",
+    "flag": "🇩🇰"
+  },
+  "nl": {
+    "language": "Dutch",
+    "endonym": "Nederlands",
+    "flag": "🇳🇱"
+  },
+  "en": {
+    "language": "English",
+    "endonym": "English",
+    "flag": "🇺🇸 🇬🇧"
+  },
+  "eo": {
+    "language": "Esperanto",
+    "endonym": "Esperanto",
+    "flag": "🇺🇳"
+  },
+  "et": {
+    "language": "Estonian",
+    "endonym": "Eesti Keel",
+    "flag": "🇪🇪"
+  },
+  "fi": {
+    "language": "Finnish",
+    "endonym": "Suomi",
+    "flag": "🇫🇮"
+  },
+  "fr": {
+    "language": "French",
+    "endonym": "Français",
+    "flag": "🇫🇷"
+  },
+  "gl": {
+    "language": "Galician",
+    "endonym": "Galego",
+    "flag": "🇪🇸"
+  },
+  "de": {
+    "language": "German",
+    "endonym": "Deutsch",
+    "flag": "🇩🇪"
+  },
+  "el": {
+    "language": "Greek",
+    "endonym": "Ελληνικά",
+    "flag": "🇬🇷"
+  },
+  "he": {
+    "language": "Hebrew",
+    "endonym": "עברית",
+    "flag": "🇮🇱"
+  },
+  "hi": {
+    "language": "Hindi",
+    "endonym": "हिन्दी",
+    "flag": "🇮🇳"
+  },
+  "hu": {
+    "language": "Hungarian",
+    "endonym": "Magyar",
+    "flag": "🇭🇺"
+  },
+  "id": {
+    "language": "Indonesian",
+    "endonym": "Bahasa Indonesia",
+    "flag": "🇮🇩"
+  },
+  "ga": {
+    "language": "Irish",
+    "endonym": "Gaeilge",
+    "flag": "🇮🇪"
+  },
+  "it": {
+    "language": "Italian",
+    "endonym": "Italiano",
+    "flag": "🇮🇹"
+  },
+  "ja": {
+    "language": "Japanese",
+    "endonym": "日本語",
+    "flag": "🇯🇵"
+  },
+  "ky": {
+    "language": "Kirghiz",
+    "endonym": "Кыргызча",
+    "flag": "🇰🇬"
+  },
+  "ko": {
+    "language": "Korean",
+    "endonym": "한국어",
+    "flag": "🇰🇷"
+  },
+  "lv": {
+    "language": "Latvian",
+    "endonym": "Latviešu Valoda",
+    "flag": "🇱🇻"
+  },
+  "lt": {
+    "language": "Lithuanian",
+    "endonym": "Lietuvių Kalba",
+    "flag": "🇱🇹"
+  },
+  "ms": {
+    "language": "Malay",
+    "endonym": "Bahasa Melayu",
+    "flag": "🇲🇾"
+  },
+  "nb": {
+    "language": "Bokmål",
+    "endonym": "Norsk",
+    "flag": "🇳🇴"
+  },
+  "pl": {
+    "language": "Polish",
+    "endonym": "Polski",
+    "flag": "🇵🇱"
+  },
+  "pt": {
+    "language": "Portuguese",
+    "endonym": "Português",
+    "flag": "🇵🇹"
+  },
+  "ro": {
+    "language": "Romanian",
+    "endonym": "Română",
+    "flag": "🇷🇴"
+  },
+  "ru": {
+    "language": "Russian",
+    "endonym": "Русский Язык",
+    "flag": "🇷🇺"
+  },
+  "sk": {
+    "language": "Slovak",
+    "endonym": "Slovenčina",
+    "flag": "🇸🇰"
+  },
+  "sl": {
+    "language": "Slovenian",
+    "endonym": "Slovenščina",
+    "flag": "🇸🇮"
+  },
+  "es": {
+    "language": "Spanish",
+    "endonym": "Español",
+    "flag": "🇪🇸"
+  },
+  "sr": {
+    "language": "Serbian",
+    "endonym": "Српски",
+    "flag": "🇷🇸"
+  },
+  "sv": {
+    "language": "Swedish",
+    "endonym": "Svenska",
+    "flag": "🇸🇪"
+  },
+  "tl": {
+    "language": "Tagalog",
+    "endonym": "Tagalog",
+    "flag": "🇵🇭"
+  },
+  "th": {
+    "language": "Thai",
+    "endonym": "ภาษาไทย",
+    "flag": "🇹🇭"
+  },
+  "tr": {
+    "language": "Turkish",
+    "endonym": "Türkçe",
+    "flag": "🇹🇷"
+  },
+  "uk": {
+    "language": "Ukrainian",
+    "endonym": "Українська",
+    "flag": "🇺🇦"
+  },
+  "ur": {
+    "language": "Urdu",
+    "endonym": "اردو",
+    "flag": "🇵🇰"
+  },
+  "vi": {
+    "language": "Vietnamese",
+    "endonym": "Tiếng Việt",
+    "flag": "🇻🇳"
+  }
+}

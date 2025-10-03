@@ -2,238 +2,285 @@
   "languages": [
     {
       "language": "Albanian",
-      "endonym": "shqip",
-      "flag": "🇦🇱"
+      "endonym": "Shqip",
+      "flag": "🇦🇱",
+      "iso": "sq"
     },
     {
-        "language": "Persian",
-        "endonym": "فارسی",
-        "flag": "🇮🇷"
+      "language": "Persian",
+      "endonym": "فارسی",
+      "flag": "🇮🇷",
+      "iso": "fa"
     },
     {
       "language": "Arabic",
       "endonym": "العربية",
-      "flag": "🇸🇦"
+      "flag": "🇸🇦",
+      "iso": "ar"
     },
     {
       "language": "Azerbaijani",
-      "endonym": "Azərbaycan dili",
-      "flag": "🇦🇿"
+      "endonym": "Azərbaycan Dili",
+      "flag": "🇦🇿",
+      "iso": "az"
     },
     {
       "language": "Basque",
-      "endonym": "euskara",
-      "flag": "🇪🇸"
+      "endonym": "Euskara",
+      "flag": "🇪🇸",
+      "iso": "eu"
     },
     {
       "language": "Bengali",
       "endonym": "বাংলা",
-      "flag": "🇧🇩"
+      "flag": "🇧🇩",
+      "iso": "bn"
     },
     {
       "language": "Bulgarian",
-      "endonym": "български",
-      "flag": "🇧🇬"
+      "endonym": "Български",
+      "flag": "🇧🇬",
+      "iso": "bg"
     },
     {
       "language": "Catalan",
-      "endonym": "català",
-      "flag": "🇪🇸"
+      "endonym": "Català",
+      "flag": "🇪🇸",
+      "iso": "ca"
     },
     {
       "language": "Czech",
-      "endonym": "čeština",
-      "flag": "🇨🇿"
+      "endonym": "Čeština",
+      "flag": "🇨🇿",
+      "iso": "cs"
     },
     {
       "language": "Danish",
-      "endonym": "dansk",
-      "flag": "🇩🇰"
+      "endonym": "Dansk",
+      "flag": "🇩🇰",
+      "iso": "da"
     },
     {
       "language": "Dutch",
       "endonym": "Nederlands",
-      "flag": "🇳🇱"
+      "flag": "🇳🇱",
+      "iso": "nl"
     },
     {
       "language": "English",
       "endonym": "English",
-      "flag": "🇺🇸 🇬🇧"
+      "flag": "🇺🇸 🇬🇧",
+      "iso": "en"
     },
     {
       "language": "Esperanto",
       "endonym": "Esperanto",
-      "flag": "🇺🇳"
+      "flag": "🇺🇳",
+      "iso": "eo"
     },
     {
       "language": "Estonian",
-      "endonym": "eesti keel",
-      "flag": "🇪🇪"
+      "endonym": "Eesti Keel",
+      "flag": "🇪🇪",
+      "iso": "et"
     },
     {
       "language": "Finnish",
-      "endonym": "suomi",
-      "flag": "🇫🇮"
+      "endonym": "Suomi",
+      "flag": "🇫🇮",
+      "iso": "fi"
     },
     {
       "language": "French",
-      "endonym": "français",
-      "flag": "🇫🇷"
+      "endonym": "Français",
+      "flag": "🇫🇷",
+      "iso": "fr"
     },
     {
       "language": "Galician",
-      "endonym": "galego",
-      "flag": "🇪🇸"
+      "endonym": "Galego",
+      "flag": "🇪🇸",
+      "iso": "gl"
     },
     {
       "language": "German",
       "endonym": "Deutsch",
-      "flag": "🇩🇪"
+      "flag": "🇩🇪",
+      "iso": "de"
     },
     {
       "language": "Greek",
-      "endonym": "ελληνικά",
-      "flag": "🇬🇷"
+      "endonym": "Ελληνικά",
+      "flag": "🇬🇷",
+      "iso": "el"
     },
     {
       "language": "Hebrew",
       "endonym": "עברית",
-      "flag": "🇮🇱"
+      "flag": "🇮🇱",
+      "iso": "he"
     },
     {
       "language": "Hindi",
       "endonym": "हिन्दी",
-      "flag": "🇮🇳"
+      "flag": "🇮🇳",
+      "iso": "hi"
     },
     {
       "language": "Hungarian",
-      "endonym": "magyar",
-      "flag": "🇭🇺"
+      "endonym": "Magyar",
+      "flag": "🇭🇺",
+      "iso": "hu"
     },
     {
       "language": "Indonesian",
       "endonym": "Bahasa Indonesia",
-      "flag": "🇮🇩"
+      "flag": "🇮🇩",
+      "iso": "id"
     },
     {
       "language": "Irish",
       "endonym": "Gaeilge",
-      "flag": "🇮🇪"
+      "flag": "🇮🇪",
+      "iso": "ga"
     },
     {
       "language": "Italian",
-      "endonym": "italiano",
-      "flag": "🇮🇹"
+      "endonym": "Italiano",
+      "flag": "🇮🇹",
+      "iso": "it"
     },
     {
       "language": "Japanese",
       "endonym": "日本語",
-      "flag": "🇯🇵"
+      "flag": "🇯🇵",
+      "iso": "ja"
     },
     {
       "language": "Kirghiz",
-      "endonym": "кыргызча",
-      "flag": "🇰🇬"
+      "endonym": "Кыргызча",
+      "flag": "🇰🇬",
+      "iso": "ky"
     },
     {
       "language": "Korean",
       "endonym": "한국어",
-      "flag": "🇰🇷"
+      "flag": "🇰🇷",
+      "iso": "ko"
     },
     {
       "language": "Latvian",
-      "endonym": "latviešu valoda",
-      "flag": "🇱🇻"
+      "endonym": "Latviešu Valoda",
+      "flag": "🇱🇻",
+      "iso": "lv"
     },
     {
       "language": "Lithuanian",
-      "endonym": "lietuvių kalba",
-      "flag": "🇱🇹"
+      "endonym": "Lietuvių Kalba",
+      "flag": "🇱🇹",
+      "iso": "lt"
     },
     {
       "language": "Malay",
       "endonym": "Bahasa Melayu",
-      "flag": "🇲🇾"
+      "flag": "🇲🇾",
+      "iso": "ms"
     },
     {
       "language": "Bokmål",
-      "endonym": "norsk",
-      "flag": "🇳🇴"
+      "endonym": "Norsk",
+      "flag": "🇳🇴",
+      "iso": "nb"
     },
     {
       "language": "Polish",
-      "endonym": "polski",
-      "flag": "🇵🇱"
+      "endonym": "Polski",
+      "flag": "🇵🇱",
+      "iso": "pl"
     },
     {
       "language": "Portuguese",
-      "endonym": "português",
-      "flag": "🇵🇹"
+      "endonym": "Português",
+      "flag": "🇵🇹",
+      "iso": "pt"
     },
     {
       "language": "Romanian",
-      "endonym": "română",
-      "flag": "🇷🇴"
+      "endonym": "Română",
+      "flag": "🇷🇴",
+      "iso": "ro"
     },
     {
       "language": "Russian",
-      "endonym": "русский язык",
-      "flag": "🇷🇺"
+      "endonym": "Русский Язык",
+      "flag": "🇷🇺",
+      "iso": "ru"
     },
     {
       "language": "Slovak",
-      "endonym": "slovenčina",
-      "flag": "🇸🇰"
+      "endonym": "Slovenčina",
+      "flag": "🇸🇰",
+      "iso": "sk"
     },
     {
       "language": "Slovenian",
-      "endonym": "slovenščina",
-      "flag": "🇸🇮"
+      "endonym": "Slovenščina",
+      "flag": "🇸🇮",
+      "iso": "sl"
     },
     {
       "language": "Spanish",
-      "endonym": "español",
-      "flag": "🇪🇸"
+      "endonym": "Español",
+      "flag": "🇪🇸",
+      "iso": "es"
     },
     {
       "language": "Serbian",
-      "endonym": "српски",
-      "flag": "🇷🇸"
+      "endonym": "Српски",
+      "flag": "🇷🇸",
+      "iso": "sr"
     },
     {
       "language": "Swedish",
-      "endonym": "svenska",
-      "flag": "🇸🇪"
+      "endonym": "Svenska",
+      "flag": "🇸🇪",
+      "iso": "sv"
     },
     {
       "language": "Tagalog",
       "endonym": "Tagalog",
-      "flag": "🇵🇭"
+      "flag": "🇵🇭",
+      "iso": "tl"
     },
     {
       "language": "Thai",
       "endonym": "ภาษาไทย",
-      "flag": "🇹🇭"
+      "flag": "🇹🇭",
+      "iso": "th"
     },
     {
       "language": "Turkish",
       "endonym": "Türkçe",
-      "flag": "🇹🇷"
+      "flag": "🇹🇷",
+      "iso": "tr"
     },
     {
       "language": "Ukrainian",
-      "endonym": "українська",
-      "flag": "🇺🇦"
+      "endonym": "Українська",
+      "flag": "🇺🇦",
+      "iso": "uk"
     },
     {
       "language": "Urdu",
       "endonym": "اردو",
-      "flag": "🇵🇰"
+      "flag": "🇵🇰",
+      "iso": "ur"
     },
     {
       "language": "Vietnamese",
       "endonym": "Tiếng Việt",
-      "flag": "🇻🇳"
+      "flag": "🇻🇳",
+      "iso": "vi"
     }
   ]
 }
