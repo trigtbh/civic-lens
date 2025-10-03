@@ -52,28 +52,12 @@ export function registerText(s: string | number | null | undefined): string | nu
   return addString(s);
 }
 
-// Backend posting support ---------------------------------------------------
-let POST_ENDPOINT = 'http://localhost:5000/collect-texts';
-
-export function setPostEndpoint(url: string) {
-  POST_ENDPOINT = url;
-}
-
-export async function postTexts(texts: string[], source?: string) {
-  if (!texts || !texts.length) return null;
-  try {
-    // Use fetch which exists in web and RN; callers need to handle native envs
-    await fetch(POST_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ texts, source }),
-    });
-    return true;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.error('[Text extractor] failed to post texts', err);
-    return null;
-  }
+// Backend posting support is deprecated. Keep a no-op function so callers don't break,
+// but do not call the old /collect-texts endpoint.
+export async function postTexts(_texts: string[], _source?: string) {
+  // eslint-disable-next-line no-console
+  console.warn('[Text extractor] postTexts is deprecated and will not send data to /collect-texts');
+  return null;
 }
 
 export function getAllTexts(): string[] {
