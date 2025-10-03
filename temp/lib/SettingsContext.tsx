@@ -17,10 +17,12 @@ interface SettingsContextType {
     spacing4: number;
     spacing6: number;
   };
+  showMainApp: boolean;
   updateFontScale: (scale: number) => void;
   updateFontSize: (size: 'small' | 'medium' | 'large' | 'xl') => void;
   updateAccentColor: (color: { label: string; value: string; hex: string }) => void;
   updateSpacingMode: (mode: 'compact' | 'comfortable' | 'spacious') => void;
+  updateShowMainApp: (show: boolean) => void;
   getScaledFontSize: (baseSize: number) => number;
   getSpacing: (key: keyof SettingsContextType['spacingValues']) => number;
 }
@@ -48,6 +50,7 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     hex: '#2563EB'
   });
   const [spacingMode, setSpacingMode] = useState<'compact' | 'comfortable' | 'spacious'>('comfortable');
+  const [showMainApp, setShowMainApp] = useState(false);
   
   // Set initial CSS custom properties and classes on mount and when fontScale/spacingMode changes
   useEffect(() => {
@@ -166,6 +169,10 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
     return spacingValues[key];
   };
 
+  const updateShowMainApp = (show: boolean) => {
+    setShowMainApp(show);
+  };
+
   return (
     <SettingsContext.Provider
       value={{
@@ -174,10 +181,12 @@ export const SettingsProvider: React.FC<SettingsProviderProps> = ({ children }) 
         accentColor,
         spacingMode,
         spacingValues,
+        showMainApp,
         updateFontScale,
         updateFontSize,
         updateAccentColor,
         updateSpacingMode,
+        updateShowMainApp,
         getScaledFontSize,
         getSpacing,
       }}
