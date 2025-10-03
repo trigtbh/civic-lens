@@ -55,8 +55,17 @@ export default function SelectItemsScreen() {
   const handleContinue = () => {
     const chosen = SAMPLE_ITEMS.filter(i => selected[i.id]);
     console.log('Selected items:', chosen);
-    // navigate to main app after selection
-    router.push('/main-app' as any);
+    // Fade out, then navigate to the final account creation step to match the earlier screen's transition
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      // cast to any because the route isn't in the generated types yet
+      router.push('/create-account/final' as any);
+      // reset opacity in case user navigates back
+      opacity.setValue(1);
+    });
   };
 
   return (
