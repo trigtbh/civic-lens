@@ -8,6 +8,8 @@ import { Text } from '@/components/ui/text';
 import { Button } from '@/components/ui/button';
 import { Icon } from '@/components/ui/icon';
 import { GlobeIcon } from 'lucide-react-native';
+import translateLib from '@/lib/translate';
+import { useTranslateBlocking } from '@/lib/useTranslateBlocking';
 
 const SCREEN_OPTIONS = {
   light: {
@@ -60,6 +62,10 @@ export default function CreateAccountFinal() {
     digit: false,
     symbol: false,
   });
+
+  // Translate placeholders (top-level hooks)
+  const { translated: usernameTranslated, loading: usernameLoading } = useTranslateBlocking('Choose a username');
+  const { translated: passwordTranslated, loading: passwordLoading } = useTranslateBlocking('Create a strong password');
 
   React.useEffect(() => {
     // Checklist-based scoring: count requirements met and map to labels
@@ -139,22 +145,18 @@ export default function CreateAccountFinal() {
               <Card className="mb-4">
                 <CardContent className="gap-4">
                   <Text variant="default" className="text-muted-foreground">Username</Text>
-                  <TextInput
-                    value={username}
-                    onChangeText={setUsername}
-                    placeholder="Choose a username"
-                    className="text-foreground border-input rounded-md border px-3 py-2"
-                    autoCapitalize="none"
-                  />
+                  {usernameLoading ? (
+                    <TextInput value={username} onChangeText={setUsername} placeholder={undefined} className="text-foreground border-input rounded-md border px-3 py-2" autoCapitalize="none" />
+                  ) : (
+                    <TextInput value={username} onChangeText={setUsername} placeholder={usernameTranslated ?? 'Choose a username'} className="text-foreground border-input rounded-md border px-3 py-2" autoCapitalize="none" />
+                  )}
 
                   <Text variant="default" className="text-muted-foreground">Password</Text>
-                  <TextInput
-                    value={password}
-                    onChangeText={setPassword}
-                    placeholder="Create a strong password"
-                    secureTextEntry
-                    className="text-foreground border-input rounded-md border px-3 py-2"
-                  />
+                  {passwordLoading ? (
+                    <TextInput value={password} onChangeText={setPassword} placeholder={undefined} secureTextEntry className="text-foreground border-input rounded-md border px-3 py-2" />
+                  ) : (
+                    <TextInput value={password} onChangeText={setPassword} placeholder={passwordTranslated ?? 'Create a strong password'} secureTextEntry className="text-foreground border-input rounded-md border px-3 py-2" />
+                  )}
 
                   {/* Strength indicator and checklist */}
                   <View className="mt-2">

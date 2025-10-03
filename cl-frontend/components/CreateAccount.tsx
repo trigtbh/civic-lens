@@ -9,6 +9,7 @@ import { GlobeIcon } from 'lucide-react-native';
 import languagesData from '@/data/languages.json';
 import type { Option } from '@/components/ui/select';
 import { useRouter } from 'expo-router';
+import { useTranslateBlocking } from '@/lib/useTranslateBlocking';
 
 interface Language {
   code: string;
@@ -236,6 +237,12 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
     return rtl.has(base);
   }, [selectedLanguage]);
 
+  // Translation hooks for placeholders (must be top-level to preserve hook order)
+  const { translated: selectTranslated, loading: selectLoading } = useTranslateBlocking('Select a language');
+  const { translated: usernameTranslated, loading: usernameLoading } = useTranslateBlocking('Choose a username');
+  const { translated: passwordTranslated, loading: passwordLoading } = useTranslateBlocking('Create a strong password');
+  const { translated: confirmTranslated, loading: confirmLoading } = useTranslateBlocking('Re-enter your password');
+
   const toggleTopic = (id: string) => {
     setSelectedTopics(prev => ({ ...prev, [id]: !prev[id] }));
   };
@@ -332,8 +339,8 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                       </Text>
                       <Select value={selectedOption} onValueChange={handleLanguageChange}>
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a language" className={isRtlLang ? 'text-right' : 'text-left'} />
-                        </SelectTrigger>
+                            <SelectValue placeholder={selectLoading ? '' : (selectTranslated ?? 'Select a language')} className={isRtlLang ? 'text-right' : 'text-left'} />
+                          </SelectTrigger>
                         <SelectContent>
                           {languages.map((language) => (
                             <SelectItem
@@ -395,31 +402,25 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                   <Card className="mb-4">
                     <CardContent className="gap-4">
                       <Text variant="default" className="text-muted-foreground">Username</Text>
-                      <TextInput
-                        value={username}
-                        onChangeText={setUsername}
-                        placeholder="Choose a username"
-                        className="text-foreground border-input rounded-md border px-3 py-2"
-                        autoCapitalize="none"
-                      />
+                      {usernameLoading ? (
+                        <TextInput value={username} onChangeText={setUsername} placeholder={undefined} className="text-foreground border-input rounded-md border px-3 py-2" autoCapitalize="none" />
+                      ) : (
+                        <TextInput value={username} onChangeText={setUsername} placeholder={usernameTranslated ?? 'Choose a username'} className="text-foreground border-input rounded-md border px-3 py-2" autoCapitalize="none" />
+                      )}
 
                       <Text variant="default" className="text-muted-foreground">Password</Text>
-                      <TextInput
-                        value={password}
-                        onChangeText={setPassword}
-                        placeholder="Create a strong password"
-                        secureTextEntry
-                        className="text-foreground border-input rounded-md border px-3 py-2"
-                      />
+                      {passwordLoading ? (
+                        <TextInput value={password} onChangeText={setPassword} placeholder={undefined} secureTextEntry className="text-foreground border-input rounded-md border px-3 py-2" />
+                      ) : (
+                        <TextInput value={password} onChangeText={setPassword} placeholder={passwordTranslated ?? 'Create a strong password'} secureTextEntry className="text-foreground border-input rounded-md border px-3 py-2" />
+                      )}
 
                       <Text variant="default" className="text-muted-foreground">Confirm password</Text>
-                      <TextInput
-                        value={confirmPassword}
-                        onChangeText={setConfirmPassword}
-                        placeholder="Re-enter your password"
-                        secureTextEntry
-                        className="text-foreground border-input rounded-md border px-3 py-2"
-                      />
+                      {confirmLoading ? (
+                        <TextInput value={confirmPassword} onChangeText={setConfirmPassword} placeholder={undefined} secureTextEntry className="text-foreground border-input rounded-md border px-3 py-2" />
+                      ) : (
+                        <TextInput value={confirmPassword} onChangeText={setConfirmPassword} placeholder={confirmTranslated ?? 'Re-enter your password'} secureTextEntry className="text-foreground border-input rounded-md border px-3 py-2" />
+                      )}
 
                       {confirmPassword.length > 0 && confirmPassword !== password && (
                         <Text variant="small" className="text-rose-600 mt-2">Passwords do not match</Text>
