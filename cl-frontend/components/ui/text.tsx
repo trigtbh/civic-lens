@@ -4,6 +4,7 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { Platform, Text as RNText, type Role } from 'react-native';
 import { useSettings } from '@/lib/SettingsContext';
+import extractor, { addTextsFromNode, registerText, postTexts } from './text-extractor';
 
 const textVariants = cva(
   cn(
@@ -95,6 +96,41 @@ function Text({
     }
     return props;
   }, [fontScale, props, disableFontScaling]);
+
+  // Extract any string/number children for translation collection.
+  // We run this in an effect so it happens during rendering lifecycle but
+  // doesn't block the UI. It will collect nested children as well.
+  React.useEffect(() => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const children = (props as any).children as React.ReactNode;
+    if (children) {
+      try {
+        const newly = addTextsFromNode(children);
+        if (newly && newly.length) {
+          // Log newly discovered strings (only the message strings themselves)
+          // eslint-disable-next-line no-console
+          newly.forEach(s => console.log(s));
+          // Fire-and-forget POST to backend to persist the texts
+          try {
+            postTexts(newly).catch(() => {});
+          } catch (e) {
+            // swallow
+          }
+        }
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.error('[Text extractor] error while extracting texts', err);
+      }
+    }
+    // Also handle the single-value case explicitly
+    if (typeof children === 'string' || typeof children === 'number') {
+      const s = registerText(children);
+      if (s) {
+        // eslint-disable-next-line no-console
+        console.log(s);
+      }
+    }
+  }, [props.children]);
   
   return (
     <Component
