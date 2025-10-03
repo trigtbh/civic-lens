@@ -39,7 +39,7 @@ def translate():
         if data["text"] in cached[pipeline]:
             return jsonify({"translation": cached[pipeline][data["text"]]}), 200
     else:
-        data[pipeline] = {}
+        cached[pipeline] = {}
 
     payload = {
         "q": data["text"],
@@ -51,7 +51,10 @@ def translate():
     resp = requests.post("https://translate.civiclens.app/translate", json=payload, timeout=10)
 
     if resp.status_code == 200:
-        translation = resp.json()["alternatives"][0]
+        if len(resp.json().get("alternatives", [])) > 0:
+            translation = resp.json()["alternatives"][0]
+        else:
+            translation = resp.json().get("translatedText")
         if translation:
             cached[pipeline][data["text"]] = translation
             with open(os.path.join(base, "cached_translations.json"), "w", encoding="utf-8") as f:
@@ -61,4 +64,4 @@ def translate():
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=False, use_reloader=False)
+    app.run(host='0.0.0.0', port=5000, debug=False, threaded=False, use_reloader=False)

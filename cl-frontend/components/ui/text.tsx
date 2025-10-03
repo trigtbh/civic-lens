@@ -85,6 +85,37 @@ function Text({
   // Simple in-memory cache to avoid refetching the same string-target pair
   const translationCache = React.useRef<Map<string, string>>(new Map());
 
+  // Track language changes so we can re-run translation effect when language changes
+  const [langVersion, setLangVersion] = React.useState(0);
+
+  // Listen for global language-change events so we can clear cache and force re-fetch
+  React.useEffect(() => {
+    const handler = (ev: Event) => {
+      // Clear cache so new translations will be fetched for the new language
+      translationCache.current.clear();
+      // Also reset translated state to force re-evaluation
+      setTranslated(null);
+      // bump version to force the translation effect to re-run
+      setLangVersion(v => v + 1);
+      // eslint-disable-next-line no-console
+      console.log('[Text] language change detected, cleared translation cache');
+    };
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).addEventListener('civic-lens-language-changed', handler);
+    } catch (e) {
+      // ignore (non-browser env)
+    }
+    return () => {
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (window as any).removeEventListener('civic-lens-language-changed', handler);
+      } catch (e) {
+        // ignore
+      }
+    };
+  }, []);
+
   // Resolve target language: prefer localStorage 'preferredLanguage', then document.lang, then navigator, then 'en'
   const resolveTargetLang = () => {
     try {
@@ -195,12 +226,12 @@ function Text({
         // eslint-disable-next-line no-console
         console.log('[Text] starting translation fetch for', cacheKey);
         console.log(target);
-        let target2 = "en";
+        // let target2 = "en";
         try {
-          const resp = await fetch('https://translate.civiclens.app/translate', {
+          const resp = await fetch('http://localhost:5000/translate', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ q: text, source: 'en', target: target2 }),
+            body: JSON.stringify({ text: text, source: 'en', target: target }),
             signal: controller?.signal,
           });
           if (!resp.ok) throw new Error(`status ${resp.status}`);
@@ -247,7 +278,7 @@ function Text({
     setTranslated(null);
     setIsTranslating(false);
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.children]);
+  }, [props.children, langVersion]);
 
   // If we have a translated string, render that instead of children.
   // Otherwise render as before (children may be string, elements, etc).

@@ -105,3 +105,5 @@ expo-env.d.ts
 
 android/*
 ios/*
+
+*cached_translations.json

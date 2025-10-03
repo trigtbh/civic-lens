@@ -13,7 +13,8 @@ import { useRouter } from 'expo-router';
 interface Language {
   code: string;
   name: string;
-  nativeName: string;
+  nativeName: string; // endonym
+  flag?: string;
 }
 
 interface CreateAccountProps {
@@ -58,12 +59,92 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
   const opacity = React.useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    setLanguages(languagesData);
-    const defaultLanguage = languagesData.find(lang => lang.code === 'en');
-    if (defaultLanguage) {
-      setSelectedLanguage(defaultLanguage);
-      onLanguageSelected?.(defaultLanguage);
-    }
+    let mounted = true;
+    const normalizeFromObject = (obj: Record<string, any>): Language[] => {
+      return Object.entries(obj).map(([code, info]) => ({
+        code,
+        name: info.language ?? info.name ?? code,
+        nativeName: info.endonym ?? info.nativeName ?? info.language ?? code,
+        flag: info.flag ?? '',
+      }));
+    };
+
+    const normalizeFromArray = (arr: any[]): Language[] => {
+      return arr.map(item => ({
+        code: item.code || item.locale || item.id,
+        name: item.name || item.language || item.code,
+        nativeName: item.nativeName || item.endonym || item.name || item.code,
+        flag: item.flag ?? '',
+      }));
+    };
+
+    const getPreferred = () => {
+      try {
+        if (typeof localStorage !== 'undefined') return localStorage.getItem('preferredLanguage');
+      } catch (e) {
+        // ignore
+      }
+      return null;
+    };
+
+    const matchPreferred = (list: Language[], pref: string | null) => {
+      if (!pref) return null;
+      // try exact match first
+      let found = list.find(l => l.code === pref);
+      if (found) return found;
+      // try matching base language (e.g., en-US -> en)
+      const prefBase = pref.split('-')[0];
+      found = list.find(l => l.code.split('-')[0] === prefBase);
+      return found || null;
+    };
+
+    const fetchLanguages = async () => {
+      try {
+        const resp = await fetch('http://localhost:5000/languages');
+        if (resp.ok) {
+          const data = await resp.json();
+          let list: Language[] = [];
+          if (Array.isArray(data)) {
+            list = normalizeFromArray(data);
+          } else if (data && typeof data === 'object') {
+            list = normalizeFromObject(data);
+          }
+          if (mounted && list.length) {
+            setLanguages(list);
+            const pref = getPreferred();
+            const defaultLanguage = matchPreferred(list, pref) ?? list.find((lang: any) => lang.code === 'en') ?? list[0];
+            if (defaultLanguage) {
+              setSelectedLanguage(defaultLanguage);
+              onLanguageSelected?.(defaultLanguage);
+            }
+            return;
+          }
+        }
+        // fallback to bundled
+        // eslint-disable-next-line no-console
+        console.warn('[CreateAccount] failed to load languages from backend, falling back to bundled languages.json');
+      } catch (err) {
+        // eslint-disable-next-line no-console
+        console.warn('[CreateAccount] error fetching languages from backend, falling back to bundled languages.json', err);
+      }
+
+      if (mounted) {
+        const list = normalizeFromArray(languagesData as any);
+        setLanguages(list);
+        const pref = getPreferred();
+        const defaultLanguage = matchPreferred(list, pref) ?? list.find(lang => lang.code === 'en') ?? list[0];
+        if (defaultLanguage) {
+          setSelectedLanguage(defaultLanguage);
+          onLanguageSelected?.(defaultLanguage);
+        }
+      }
+    };
+
+    fetchLanguages();
+
+    return () => {
+      mounted = false;
+    };
   }, [onLanguageSelected]);
 
   // Password strength logic (copied/adapted from final.tsx)
@@ -100,7 +181,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
   }, [password]);
 
   const selectedOption: Option | undefined = selectedLanguage
-    ? { value: selectedLanguage.code, label: `${selectedLanguage.name} (${selectedLanguage.nativeName})` }
+    ? { value: selectedLanguage.code, label: `${selectedLanguage.flag ? selectedLanguage.flag + ' ' : ''}${selectedLanguage.nativeName}` }
     : undefined;
 
   const handleLanguageChange = (option: Option) => {
@@ -109,6 +190,20 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
       if (language) {
         setSelectedLanguage(language);
         onLanguageSelected?.(language);
+        try {
+          if (typeof localStorage !== 'undefined') {
+            localStorage.setItem('preferredLanguage', language.code);
+          }
+          if (typeof document !== 'undefined' && document.documentElement) {
+            document.documentElement.lang = language.code;
+          }
+          if (typeof window !== 'undefined' && (window as any).dispatchEvent) {
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            (window as any).dispatchEvent(new CustomEvent('civic-lens-language-changed', { detail: language.code }));
+          }
+        } catch (e) {
+          // ignore
+        }
       }
     }
   };
@@ -213,10 +308,14 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                         </SelectTrigger>
                         <SelectContent>
                           {languages.map((language) => (
-                            <SelectItem key={language.code} value={language.code} label={`${language.name} (${language.nativeName})`}>
+                            <SelectItem
+                              key={language.code}
+                              value={language.code}
+                              label={`${language.flag ? language.flag + ' ' : ''}${language.nativeName}`}
+                            >
                               <View className="flex-1">
-                                <Text className="font-medium">{language.name}</Text>
-                                <Text variant="small" className="text-muted-foreground">{language.nativeName}</Text>
+                                <Text className="font-medium">{`${language.flag ? language.flag + ' ' : ''}${language.nativeName}`}</Text>
+                                <Text variant="small" className="text-muted-foreground">{language.name}</Text>
                               </View>
                             </SelectItem>
                           ))}
