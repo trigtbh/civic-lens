@@ -46,14 +46,14 @@ export default function CreateAccountScreen() {
   const router = useRouter();
 
   const handleNext = () => {
-    // Fade out, then navigate to the multi-select objects page
+    // Fade out, then navigate to the main app (CreateAccount now handles internal steps)
     Animated.timing(opacity, {
       toValue: 0,
       duration: 300,
       useNativeDriver: true,
     }).start(() => {
       // cast to any because the route isn't in the generated types yet
-      router.push('/select-items' as any);
+      router.push('/main-app' as any);
       // reset opacity in case user navigates back
       opacity.setValue(1);
     });
