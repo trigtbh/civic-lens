@@ -14,7 +14,7 @@ CORS(app)
 import json
 base = os.path.dirname(os.path.abspath(__file__))
 
-@app.route('/languages', methods=['GET'])
+@app.route('/api/languages', methods=['GET'])
 def get_languages():
     try:
         lang_path = os.path.join(os.path.dirname(__file__), 'languages.json')
@@ -28,7 +28,7 @@ def get_languages():
 
 
 
-@app.route("/translate", methods=["POST"])
+@app.route("/api/translate", methods=["POST"])
 def translate(): 
     # should match schema {source: str, target: str, text: str}
     data = request.json
