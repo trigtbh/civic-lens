@@ -3,23 +3,21 @@ import { cn } from '@/lib/utils';
 import * as CheckboxPrimitive from '@rn-primitives/checkbox';
 import { Check } from 'lucide-react-native';
 import { Platform } from 'react-native';
+import * as React from 'react';
 
 const DEFAULT_HIT_SLOP = 24;
 
-function Checkbox({
-  className,
-  checkedClassName,
-  indicatorClassName,
-  iconClassName,
-  ...props
-}: CheckboxPrimitive.RootProps &
-  React.RefAttributes<CheckboxPrimitive.RootRef> & {
+const Checkbox = React.forwardRef<
+  CheckboxPrimitive.RootRef,
+  CheckboxPrimitive.RootProps & {
     checkedClassName?: string;
     indicatorClassName?: string;
     iconClassName?: string;
-  }) {
+  }
+>(({ className, checkedClassName, indicatorClassName, iconClassName, ...props }, ref) => {
   return (
     <CheckboxPrimitive.Root
+      ref={ref}
       className={cn(
         'border-input dark:bg-input/30 size-4 shrink-0 rounded-[4px] border shadow-sm shadow-black/5',
         Platform.select({
@@ -43,6 +41,8 @@ function Checkbox({
       </CheckboxPrimitive.Indicator>
     </CheckboxPrimitive.Root>
   );
-}
+});
+
+Checkbox.displayName = 'Checkbox';
 
 export { Checkbox };

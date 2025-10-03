@@ -1,7 +1,10 @@
 import '@/global.css';
+import '@/styles/settings.css';
 
 import { NAV_THEME } from '@/lib/theme';
 import { FontProvider } from '@/lib/FontProvider';
+import { SettingsProvider } from '@/lib/SettingsContext';
+import { DynamicThemeProvider } from '@/lib/DynamicThemeProvider';
 import { setCustomFonts } from '@/lib/fontUtils';
 import { ThemeProvider } from '@react-navigation/native';
 import { PortalHost } from '@rn-primitives/portal';
@@ -10,6 +13,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useColorScheme } from 'nativewind';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect, useState } from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 // Keep the splash screen visible while we fetch resources
 SplashScreen.preventAutoHideAsync();
@@ -55,12 +59,14 @@ export default function RootLayout() {
   }
 
   return (
-    <FontProvider>
-      <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
-        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-        <Stack />
-        <PortalHost />
-      </ThemeProvider>
-    </FontProvider>
+    <SettingsProvider>
+      <FontProvider>
+        <DynamicThemeProvider>
+          <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+          <Stack />
+          <PortalHost />
+        </DynamicThemeProvider>
+      </FontProvider>
+    </SettingsProvider>
   );
 }

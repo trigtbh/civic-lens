@@ -1,7 +1,6 @@
 import { cn } from '@/lib/utils';
 import * as ProgressPrimitive from '@rn-primitives/progress';
 import { Platform, View } from 'react-native';
-import * as React from 'react';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -10,23 +9,23 @@ import Animated, {
   withSpring,
 } from 'react-native-reanimated';
 
-const Progress = React.forwardRef<
-  ProgressPrimitive.RootRef,
-  ProgressPrimitive.RootProps & {
+function Progress({
+  className,
+  value,
+  indicatorClassName,
+  ...props
+}: ProgressPrimitive.RootProps &
+  React.RefAttributes<ProgressPrimitive.RootRef> & {
     indicatorClassName?: string;
-  }
->(({ className, value, indicatorClassName, ...props }, ref) => {
+  }) {
   return (
     <ProgressPrimitive.Root
-      ref={ref}
       className={cn('bg-primary/20 relative h-2 w-full overflow-hidden rounded-full', className)}
       {...props}>
       <Indicator value={value} className={indicatorClassName} />
     </ProgressPrimitive.Root>
   );
-});
-
-Progress.displayName = 'Progress';
+}
 
 export { Progress };
 

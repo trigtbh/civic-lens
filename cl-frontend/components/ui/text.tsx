@@ -1,13 +1,13 @@
 import { cn } from '@/lib/utils';
-import { fontManager } from '@/lib/fonts';
 import * as Slot from '@rn-primitives/slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
 import { Platform, Text as RNText, type Role } from 'react-native';
+import { useSettings } from '@/lib/SettingsContext';
 
 const textVariants = cva(
   cn(
-    'text-base text-foreground',
+    'text-foreground text-base',
     Platform.select({
       web: 'select-text',
     })
@@ -21,7 +21,7 @@ const textVariants = cva(
           Platform.select({ web: 'scroll-m-20 text-balance' })
         ),
         h2: cn(
-          'border-b border-border pb-2 text-3xl font-semibold tracking-tight',
+          'border-border border-b pb-2 text-3xl font-semibold tracking-tight',
           Platform.select({ web: 'scroll-m-20 first:mt-0' })
         ),
         h3: cn('text-2xl font-semibold tracking-tight', Platform.select({ web: 'scroll-m-20' })),
@@ -29,12 +29,12 @@ const textVariants = cva(
         p: 'mt-3 leading-7 sm:mt-6',
         blockquote: 'mt-4 border-l-2 pl-3 italic sm:mt-6 sm:pl-6',
         code: cn(
-          'relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
+          'bg-muted relative rounded px-[0.3rem] py-[0.2rem] font-mono text-sm font-semibold'
         ),
-        lead: 'text-xl text-muted-foreground',
+        lead: 'text-muted-foreground text-xl',
         large: 'text-lg font-semibold',
         small: 'text-sm font-medium leading-none',
-        muted: 'text-sm text-muted-foreground',
+        muted: 'text-muted-foreground text-sm',
       },
     },
     defaultVariants: {
@@ -69,44 +69,39 @@ function Text({
   className,
   asChild = false,
   variant = 'default',
-  style,
+  disableFontScaling = false,
   ...props
-}: React.ComponentProps<typeof RNText> &
-  TextVariantProps &
+}: React.ComponentProps<typeof RNText> & 
+  TextVariantProps & 
   React.RefAttributes<RNText> & {
     asChild?: boolean;
+    disableFontScaling?: boolean;
   }) {
   const textClass = React.useContext(TextClassContext);
+  const { fontScale } = useSettings();
   const Component = asChild ? Slot.Text : RNText;
   
-  // Get appropriate font family based on variant
-  const getFontFamily = () => {
-    switch (variant) {
-      case 'code':
-        return fontManager.getFontFamily('monospace');
-      case 'h1':
-      case 'h2':
-      case 'h3':
-      case 'h4':
-        return fontManager.getFontFamily('serif');
-      default:
-        return fontManager.getFontFamily('sansSerif');
+  // Apply font scaling to text (unless disabled)
+  const scaledProps = React.useMemo(() => {
+    if (fontScale !== 1 && !disableFontScaling) {
+      const currentStyle = Array.isArray(props.style) ? props.style : [props.style];
+      return {
+        ...props,
+        style: [
+          ...currentStyle,
+          { fontSize: fontScale * 16 } // Base font size of 16px scaled
+        ]
+      };
     }
-  };
-
-  const fontStyle = {
-    fontFamily: getFontFamily(),
-  };
-
+    return props;
+  }, [fontScale, props, disableFontScaling]);
+  
   return (
     <Component
       className={cn(textVariants({ variant }), textClass, className)}
-      style={[fontStyle, style]}
       role={variant ? ROLE[variant] : undefined}
       aria-level={variant ? ARIA_LEVEL[variant] : undefined}
-      {...props}
+      {...scaledProps}
     />
   );
-}
-
-export { Text, TextClassContext };
+}export { Text, TextClassContext };

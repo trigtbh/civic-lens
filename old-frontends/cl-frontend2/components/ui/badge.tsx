@@ -2,9 +2,7 @@ import { TextClassContext } from '@/components/ui/text';
 import { cn } from '@/lib/utils';
 import * as Slot from '@rn-primitives/slot';
 import { cva, type VariantProps } from 'class-variance-authority';
-import { Platform, View, Text } from 'react-native';
-import type { ViewProps } from 'react-native';
-import * as React from 'react';
+import { Platform, View, ViewProps } from 'react-native';
 
 const badgeVariants = cva(
   cn(
@@ -51,29 +49,19 @@ const badgeTextVariants = cva('text-xs font-medium', {
   },
 });
 
-type BadgeProps = ViewProps & { children?: React.ReactNode; className?: string };
+type BadgeProps = ViewProps &
+  React.RefAttributes<View> & {
+    asChild?: boolean;
+  } & VariantProps<typeof badgeVariants>;
 
-const Badge = React.forwardRef<any, BadgeProps>(({ children, className, ...props }, ref) => {
-  const renderChildren = (child: React.ReactNode) => {
-    if (typeof child === 'string' || typeof child === 'number') {
-      return <Text className={className}>{child}</Text>;
-    }
-    if (Array.isArray(child)) {
-      return child.map((c, i) =>
-        typeof c === 'string' || typeof c === 'number' ? <Text key={i}>{c}</Text> : c
-      );
-    }
-    return child;
-  };
-
+function Badge({ className, variant, asChild, ...props }: BadgeProps) {
+  const Component = asChild ? Slot.View : View;
   return (
-    <View ref={ref} {...props} className={className}>
-      {renderChildren(children)}
-    </View>
+    <TextClassContext.Provider value={badgeTextVariants({ variant })}>
+      <Component className={cn(badgeVariants({ variant }), className)} {...props} />
+    </TextClassContext.Provider>
   );
-});
-
-Badge.displayName = 'Badge';
+}
 
 export { Badge, badgeTextVariants, badgeVariants };
 export type { BadgeProps };

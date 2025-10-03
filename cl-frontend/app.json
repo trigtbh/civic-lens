@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "cl-frontend",
-    "slug": "cl-frontend",
+    "name": "temp",
+    "slug": "temp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "cl-frontend",
+    "scheme": "temp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "splash": {
@@ -17,16 +17,14 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.anonymous.clfrontend"
+      "supportsTablet": true
     },
     "android": {
       "edgeToEdgeEnabled": true,
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      },
-      "package": "com.anonymous.clfrontend"
+      }
     },
     "web": {
       "bundler": "metro",

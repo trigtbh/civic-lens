@@ -80,80 +80,6 @@ function SelectContent({
     className?: string;
     portalHost?: string;
   }) {
-  const contentRef = React.useRef<any>(null);
-
-  React.useEffect(() => {
-    if (Platform.OS !== 'web' || typeof document === 'undefined') return;
-    const el = contentRef.current as HTMLElement | null;
-    if (!el) return;
-
-    const getComputedVars = () => {
-      const root = document.documentElement;
-      const highlightRaw = (getComputedStyle(root).getPropertyValue('--highlight') || '').trim();
-      const primaryRaw = (getComputedStyle(root).getPropertyValue('--primary') || '').trim();
-      const accentFgRaw = (getComputedStyle(root).getPropertyValue('--accent-foreground') || '').trim();
-
-      const normalize = (v: string, fallback: string) => {
-        if (!v) return fallback;
-        v = v.trim();
-        if (v.startsWith('hsl(')) return v;
-        if (v.split(' ').length === 3) return `hsl(${v})`;
-        return v;
-      };
-
-      const lighten = (hsl: string, amount = 18) => {
-        const m = hsl.match(/hsl\((\d+)\s+(\d+)%\s+(\d+)%\)/);
-        if (!m) return hsl;
-        const h = m[1];
-        const s = m[2];
-        const l = Math.min(100, parseInt(m[3], 10) + amount);
-        return `hsl(${h} ${s}% ${l}%)`;
-      };
-
-      const primary = normalize(primaryRaw, 'hsl(0 0% 96.1%)');
-      const highlight = highlightRaw ? normalize(highlightRaw, '') : lighten(primary, 18);
-      const accentFg = normalize(accentFgRaw, 'hsl(0 0% 9%)');
-      return { highlight, accentFg, primary };
-    };
-
-    const { highlight, accentFg, primary } = getComputedVars();
-    if (highlight) el.style.setProperty('--highlight', highlight);
-    if (accentFg) el.style.setProperty('--accent-foreground', accentFg);
-    if (primary) el.style.setProperty('--primary', primary);
-
-    // Tag the content node so we can inject scoped rules that override other utilities
-    el.setAttribute('data-theme-content', '1');
-
-    // Inject a high-specificity style to force highlight usage for selected/hovered items
-    const styleId = 'civic-lens-select-highlight-style';
-    if (!document.getElementById(styleId)) {
-      const style = document.createElement('style');
-      style.id = styleId;
-      style.innerHTML = `
-        [data-theme-content="1"] [data-selected],
-        [data-theme-content="1"] [aria-selected="true"],
-        [data-theme-content="1"] [data-state="checked"],
-        [data-theme-content="1"] [role="option"]:hover,
-        [data-theme-content="1"] [data-highlighted],
-        [data-theme-content="1"] [data-state="open"] {
-          background: var(--highlight) !important;
-          color: var(--accent-foreground) !important;
-        }
-      `;
-      document.head.appendChild(style);
-    }
-
-    // also observe document root for changes and update if vars change
-    const ro = new MutationObserver(() => {
-      const { highlight: nh, accentFg: naf, primary: np } = getComputedVars();
-      if (nh) el.style.setProperty('--highlight', nh);
-      if (naf) el.style.setProperty('--accent-foreground', naf);
-      if (np) el.style.setProperty('--primary', np);
-    });
-    ro.observe(document.documentElement, { attributes: true, attributeFilter: ['style'] });
-
-    return () => ro.disconnect();
-  }, [portalHost, position, className]);
   return (
     <SelectPrimitive.Portal hostName={portalHost}>
       <FullWindowOverlay>
@@ -161,7 +87,6 @@ function SelectContent({
           <TextClassContext.Provider value="text-popover-foreground">
             <NativeOnlyAnimatedView className="z-50" entering={FadeIn} exiting={FadeOut}>
               <SelectPrimitive.Content
-                ref={contentRef}
                 className={cn(
                   'bg-popover border-border relative z-50 min-w-[8rem] rounded-md border shadow-md shadow-black/5',
                   Platform.select({
@@ -227,22 +152,20 @@ function SelectItem({
   return (
     <SelectPrimitive.Item
       className={cn(
-        // Use highlight for hover/active/selected backgrounds and accent-foreground for contrast
-  'active:bg-[hsl(var(--highlight))] hover:bg-[hsl(var(--highlight))] group relative flex w-full flex-row items-center gap-2 rounded-sm py-2 pl-2 pr-8 sm:py-1.5 data-[selected]:bg-[hsl(var(--highlight))]',
+        'active:bg-accent group relative flex w-full flex-row items-center gap-2 rounded-sm py-2 pl-2 pr-8 sm:py-1.5',
         Platform.select({
-          web: 'focus:bg-[hsl(var(--highlight))] *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2 cursor-default outline-none data-[disabled]:pointer-events-none [&_svg]:pointer-events-none',
+          web: 'focus:bg-accent focus:text-accent-foreground *:[span]:last:flex *:[span]:last:items-center *:[span]:last:gap-2 cursor-default outline-none data-[disabled]:pointer-events-none [&_svg]:pointer-events-none',
         }),
         props.disabled && 'opacity-50',
         className
       )}
-      {...props}
-    >
+      {...props}>
       <View className="absolute right-2 flex size-3.5 items-center justify-center">
         <SelectPrimitive.ItemIndicator>
           <Icon as={Check} className="text-muted-foreground size-4 shrink-0" />
         </SelectPrimitive.ItemIndicator>
       </View>
-      <SelectPrimitive.ItemText className="text-foreground group-data-[selected]:!text-[hsl(var(--accent-foreground))] group-hover:group-data-[selected]:!text-[hsl(var(--accent-foreground))] group-hover:!text-[hsl(var(--accent-foreground))] group-active:!text-[hsl(var(--accent-foreground))] group-focus:!text-[hsl(var(--accent-foreground))] select-none text-sm" />
+      <SelectPrimitive.ItemText className="text-foreground group-active:text-accent-foreground select-none text-sm" />
     </SelectPrimitive.Item>
   );
 }
