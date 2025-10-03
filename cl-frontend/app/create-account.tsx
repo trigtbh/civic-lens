@@ -1,4 +1,4 @@
-import { Stack } from 'expo-router';
+import { Stack, useRouter } from 'expo-router';
 import { CreateAccount } from '@/components/CreateAccount';
 import { THEME } from '@/lib/theme';
 import { useColorScheme } from 'nativewind';
@@ -43,9 +43,20 @@ export default function CreateAccountScreen() {
     // Here you could save to AsyncStorage or your app's state management
   };
 
+  const router = useRouter();
+
   const handleNext = () => {
-    console.log('Proceeding to next step');
-    // Here you could navigate to the next step in the onboarding flow
+    // Fade out, then navigate to the multi-select objects page
+    Animated.timing(opacity, {
+      toValue: 0,
+      duration: 300,
+      useNativeDriver: true,
+    }).start(() => {
+      // cast to any because the route isn't in the generated types yet
+      router.push('/select-items' as any);
+      // reset opacity in case user navigates back
+      opacity.setValue(1);
+    });
   };
 
   return (

@@ -1,10 +1,13 @@
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
+import { Icon } from '@/components/ui/icon';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { THEME } from '@/lib/theme';
 import { Stack, Redirect } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { View, ScrollView, Animated } from 'react-native';
+import { View, ScrollView, Animated, SafeAreaView } from 'react-native';
+import { GlobeIcon } from 'lucide-react-native';
 import { useSettings } from '@/lib/SettingsContext';
 import { useRouter } from 'expo-router';
 
@@ -53,53 +56,56 @@ export default function LandingPage() {
   return (
     <Animated.View style={{ flex: 1, opacity }}>
       <Stack.Screen options={SCREEN_OPTIONS[colorScheme ?? 'light']} />
-      <ScrollView className="flex-1">
-        <View className="flex-1 items-center justify-center gap-6 p-8">
-          {/* Hero Section */}
-          <View className="items-center gap-4 mt-12">
-            <Text className="text-4xl font-bold text-center">
-              Welcome to Civic Lens
-            </Text>
-            <Text className="text-lg text-center text-muted-foreground max-w-md">
-              Your gateway to understanding civic information and engaging with your community.
-            </Text>
-          </View>
+      <SafeAreaView className="flex-1">
+        <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
+          <View className="flex-1 justify-center items-center p-6">
+            <View className="w-full max-w-md">
+              {/* Header */}
+              <View className="items-center mb-8">
+                <View className="w-16 h-16 bg-primary rounded-full items-center justify-center mb-4">
+                  <Icon as={GlobeIcon} size={32} className="text-primary-foreground" />
+                </View>
+                <Text variant="h2" className="text-center mb-2">Welcome to Civic Lens</Text>
+                <Text variant="muted" className="text-center">Your gateway to understanding civic information and engaging with your community.</Text>
+              </View>
 
-          {/* Feature Highlights */}
-          <View className="gap-4 w-full max-w-md mt-8">
-            <View className="p-4 bg-card rounded-lg border">
-              <Text className="text-xl font-semibold mb-2">📊 Track Legislation</Text>
-              <Text className="text-muted-foreground">
-                Stay informed about bills and policies that affect your community.
-              </Text>
+              {/* Feature Highlights */}
+              <View className="gap-4">
+                <Card>
+                  <CardContent>
+                    <Text className="text-xl font-semibold mb-2">📊 Track Legislation</Text>
+                    <Text className="text-muted-foreground">Stay informed about bills and policies that affect your community.</Text>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent>
+                    <Text className="text-xl font-semibold mb-2">🌍 Local Information</Text>
+                    <Text className="text-muted-foreground">Access relevant local government information and resources.</Text>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardContent>
+                    <Text className="text-xl font-semibold mb-2">🔔 Get Notified</Text>
+                    <Text className="text-muted-foreground">Receive updates on topics and issues that matter to you.</Text>
+                  </CardContent>
+                </Card>
+              </View>
+
+              {/* Call to Action */}
+              <View className="gap-3 w-full mt-8 mb-12">
+                <Button className="w-full" onPress={handleGetStarted}>
+                  <Text className="font-medium">Get Started</Text>
+                </Button>
+                <Button variant="outline" className="w-full">
+                  <Text className="font-medium">Learn More</Text>
+                </Button>
+              </View>
             </View>
-
-            <View className="p-4 bg-card rounded-lg border">
-              <Text className="text-xl font-semibold mb-2">🌍 Local Information</Text>
-              <Text className="text-muted-foreground">
-                Access relevant local government information and resources.
-              </Text>
-            </View>
-
-            <View className="p-4 bg-card rounded-lg border">
-              <Text className="text-xl font-semibold mb-2">🔔 Get Notified</Text>
-              <Text className="text-muted-foreground">
-                Receive updates on topics and issues that matter to you.
-              </Text>
-            </View>
           </View>
-
-          {/* Call to Action */}
-          <View className="gap-3 w-full max-w-md mt-8 mb-12">
-            <Button className="w-full" onPress={handleGetStarted}>
-              <Text>Get Started</Text>
-            </Button>
-            <Button variant="outline" className="w-full">
-              <Text>Learn More</Text>
-            </Button>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </SafeAreaView>
     </Animated.View>
   );
 }

@@ -114,14 +114,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                   </SelectContent>
                 </Select>
 
-                {selectedLanguage && (
-                  <View className="flex-row items-center gap-2 p-3 bg-muted rounded-md">
-                    <Icon as={GlobeIcon} size={16} className="text-muted-foreground" />
-                    <Text variant="small" className="flex-1">
-                      Selected: {selectedLanguage.nativeName} ({selectedLanguage.name})
-                    </Text>
-                  </View>
-                )}
+                {/* Removed the inline "Selected: ..." display per design request */}
               </CardContent>
             </Card>
 
