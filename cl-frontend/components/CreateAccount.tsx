@@ -100,7 +100,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
 
     const fetchLanguages = async () => {
       try {
-        const resp = await fetch('http://localhost:5000/languages');
+        const resp = await fetch('https://civiclens.app/api/languages');
         if (resp.ok) {
           const data = await resp.json();
           let list: Language[] = [];

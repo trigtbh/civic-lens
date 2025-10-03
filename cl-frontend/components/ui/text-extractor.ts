@@ -39,9 +39,41 @@ export function addTextsFromNode(node: React.ReactNode): string[] {
   if (typeof node === 'object' && 'props' in (node as any)) {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const props = (node as any).props as { children?: React.ReactNode };
-    if (props && props.children) {
-      const childAdded = addTextsFromNode(props.children);
-      if (childAdded.length) added.push(...childAdded);
+    // Also inspect common string-ish props that contain user-visible text
+    if (props) {
+      const commonKeys = [
+        'placeholder',
+        'placeholderText',
+        'accessibilityLabel',
+        'aria-label',
+        'ariaLabel',
+        'label',
+        'title',
+        'alt',
+      ];
+      for (const key of commonKeys) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const val = (props as any)[key];  
+        if (val === null || val === undefined) continue;
+        if (typeof val === 'string' || typeof val === 'number') {
+          const s = addString(val);
+          if (s) added.push(s);
+        } else {
+          // If the prop is itself a React node (rare), recurse into it
+          try {
+            const childAdded = addTextsFromNode(val as React.ReactNode);
+            if (childAdded.length) added.push(...childAdded);
+          } catch (e) {
+            // ignore non-React values
+          }
+        }
+      }
+
+      // Finally, inspect children as before
+      if (props.children) {
+        const childAdded = addTextsFromNode(props.children);
+        if (childAdded.length) added.push(...childAdded);
+      }
     }
   }
 
