@@ -1,6 +1,6 @@
 import { Stack, useRouter } from 'expo-router';
 import * as React from 'react';
-import { SafeAreaView, ScrollView, View, TextInput, Animated } from 'react-native';
+import { SafeAreaView, ScrollView, View, TextInput, LayoutAnimation, Platform, UIManager } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import { THEME } from '@/lib/theme';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,7 +18,7 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.light.background },
     headerShown: false,
-    animation: 'fade',
+  // no animation
   },
   dark: {
     title: 'Create Account',
@@ -26,7 +26,7 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.dark.background },
     headerShown: false,
-    animation: 'fade',
+  // no animation
   },
 };
 
@@ -46,10 +46,7 @@ export default function CreateAccountFinal() {
   const { colorScheme } = useColorScheme();
   const router = useRouter();
 
-  const opacity = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    Animated.timing(opacity, { toValue: 1, duration: 300, useNativeDriver: true }).start();
-  }, [opacity]);
+  // No fade-in; show immediately
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
@@ -108,8 +105,16 @@ export default function CreateAccountFinal() {
   const handleCreate = () => {
     // TODO: integrate with backend or auth provider
     console.log('Creating account', { username, password });
+    try { LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); } catch (e) {}
     router.push('/main-app' as any);
   };
+
+  // Enable LayoutAnimation on Android
+  React.useEffect(() => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }, []);
 
   const isRtlLang = React.useMemo(() => {
     const rtl = new Set(['ar', 'fa', 'he', 'ur']);
@@ -128,7 +133,7 @@ export default function CreateAccountFinal() {
   }, []);
 
   return (
-    <Animated.View style={{ flex: 1, opacity }}>
+    <View style={{ flex: 1 }}>
       <Stack.Screen options={SCREEN_OPTIONS[colorScheme ?? 'light'] as any} />
       <SafeAreaView className="flex-1">
         <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
@@ -191,6 +196,6 @@ export default function CreateAccountFinal() {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </Animated.View>
+    </View>
   );
 }

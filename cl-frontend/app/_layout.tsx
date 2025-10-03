@@ -63,7 +63,8 @@ export default function RootLayout() {
       <FontProvider>
         <DynamicThemeProvider>
           <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
-          <Stack />
+          {/* Disable default screen animations so navigation appears immediately */}
+          <Stack screenOptions={{ animation: 'none' }} />
           <PortalHost />
         </DynamicThemeProvider>
       </FontProvider>

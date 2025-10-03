@@ -3,7 +3,7 @@ import { CreateAccount } from '@/components/CreateAccount';
 import { THEME } from '@/lib/theme';
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { Animated } from 'react-native';
+import { View, LayoutAnimation, Platform, UIManager } from 'react-native';
 
 const SCREEN_OPTIONS = {
   light: {
@@ -12,8 +12,7 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.light.background },
     headerShown: false,
-    // use a fade animation when this screen appears
-    animation: 'fade',
+  // no animation
   },
   dark: {
     title: 'Create Account',
@@ -21,22 +20,14 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.dark.background },
     headerShown: false,
-    animation: 'fade',
+  // no animation
   },
 };
 
 export default function CreateAccountScreen() {
   const { colorScheme } = useColorScheme();
 
-  // Animated opacity for a manual fade-in effect
-  const opacity = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  }, [opacity]);
+  // No manual fade; show immediately
 
   const handleLanguageSelected = (language: any) => {
     console.log('Language selected:', language);
@@ -46,27 +37,26 @@ export default function CreateAccountScreen() {
   const router = useRouter();
 
   const handleNext = () => {
-    // Fade out, then navigate to the main app (CreateAccount now handles internal steps)
-    Animated.timing(opacity, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => {
-      // cast to any because the route isn't in the generated types yet
-      router.push('/main-app' as any);
-      // reset opacity in case user navigates back
-      opacity.setValue(1);
-    });
+    // Animate layout change then navigate
+    try { LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); } catch (e) {}
+    router.push('/main-app' as any);
   };
 
+  // Enable LayoutAnimation on Android
+  React.useEffect(() => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }, []);
+
   return (
-    <Animated.View style={{ flex: 1, opacity }}>
+    <View style={{ flex: 1 }}>
       {/* cast options as any to allow animation string values */}
       <Stack.Screen options={SCREEN_OPTIONS[colorScheme ?? 'light'] as any} />
       <CreateAccount 
         onLanguageSelected={handleLanguageSelected}
         onNext={handleNext}
       />
-    </Animated.View>
+    </View>
   );
 }

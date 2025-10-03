@@ -1,6 +1,6 @@
 import { Stack, useRouter } from 'expo-router';
 import * as React from 'react';
-import { ScrollView, SafeAreaView, View, Pressable, Animated } from 'react-native';
+import { ScrollView, SafeAreaView, View, Pressable, LayoutAnimation, Platform, UIManager } from 'react-native';
 import { useColorScheme } from 'nativewind';
 import { THEME } from '@/lib/theme';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -16,7 +16,7 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.light.background },
     headerShown: false,
-    animation: 'fade',
+  // no animation
   },
   dark: {
     title: 'Select Items',
@@ -24,7 +24,7 @@ const SCREEN_OPTIONS = {
     headerShadowVisible: true,
     headerStyle: { backgroundColor: THEME.dark.background },
     headerShown: false,
-    animation: 'fade',
+  // no animation
   },
 };
 
@@ -37,15 +37,7 @@ const SAMPLE_ITEMS = [
 export default function SelectItemsScreen() {
   const { colorScheme } = useColorScheme();
   const router = useRouter();
-  // Animated opacity for a manual fade-in effect to match the previous screen's fade-out
-  const opacity = React.useRef(new Animated.Value(0)).current;
-  React.useEffect(() => {
-    Animated.timing(opacity, {
-      toValue: 1,
-      duration: 300,
-      useNativeDriver: true,
-    }).start();
-  }, [opacity]);
+  // No animated fade-in; show immediately
   const [selected, setSelected] = React.useState<Record<string, boolean>>({});
 
   // Detect RTL from document/navigator/localStorage similar to CreateAccount
@@ -76,21 +68,20 @@ export default function SelectItemsScreen() {
   const handleContinue = () => {
     const chosen = SAMPLE_ITEMS.filter(i => selected[i.id]);
     console.log('Selected items:', chosen);
-    // Fade out, then navigate to the final account creation step to match the earlier screen's transition
-    Animated.timing(opacity, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => {
-      // cast to any because the route isn't in the generated types yet
-      router.push('/create-account/final' as any);
-      // reset opacity in case user navigates back
-      opacity.setValue(1);
-    });
+    // Animate then navigate
+    try { LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut); } catch (e) {}
+    router.push('/create-account/final' as any);
   };
 
+  // Enable LayoutAnimation on Android
+  React.useEffect(() => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }, []);
+
   return (
-    <Animated.View style={{ flex: 1, opacity }}>
+    <View style={{ flex: 1 }}>
       <Stack.Screen options={SCREEN_OPTIONS[colorScheme ?? 'light'] as any} />
       <SafeAreaView className="flex-1">
       <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
@@ -136,6 +127,6 @@ export default function SelectItemsScreen() {
         </View>
         </ScrollView>
       </SafeAreaView>
-    </Animated.View>
+    </View>
   );
 }

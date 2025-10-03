@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, ScrollView, SafeAreaView, Pressable, TextInput, Animated } from 'react-native';
+import { View, ScrollView, SafeAreaView, Pressable, TextInput, LayoutAnimation, Platform, UIManager } from 'react-native';
 import { Button } from '@/components/ui/button';
 import { Text } from '@/components/ui/text';
 import { Icon } from '@/components/ui/icon';
@@ -56,8 +56,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
   // Step state: 0 = language, 1 = topics, 2 = final
   const [step, setStep] = useState(0);
 
-  // Animated opacity used to fade between steps
-  const opacity = React.useRef(new Animated.Value(1)).current;
+  // No animated opacity; switch steps immediately
 
   useEffect(() => {
     let mounted = true;
@@ -252,14 +251,21 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
     if (next === 2) {
       clearSensitiveFields();
     }
-
-    Animated.timing(opacity, { toValue: 0, duration: 300, useNativeDriver: true }).start(() => {
-      setStep(next);
-      // start from 0 then fade in
-      opacity.setValue(0);
-      Animated.timing(opacity, { toValue: 1, duration: 300, useNativeDriver: true }).start();
-    });
+    // Animate layout changes (works well on mobile) then switch step
+    try {
+      LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+    } catch (e) {
+      // ignore if not available
+    }
+    setStep(next);
   };
+
+  // Enable LayoutAnimation on Android
+  useEffect(() => {
+    if (Platform.OS === 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
+      UIManager.setLayoutAnimationEnabledExperimental(true);
+    }
+  }, []);
 
   // Clear only sensitive fields (username/password/checks) when entering the final step
   const clearSensitiveFields = () => {
@@ -326,7 +332,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
               </Text>
             </View>
 
-            <Animated.View style={{ opacity }}>
+            <View>
               {step === 0 && (
                 <View>
                   <Card className="mb-8">
@@ -459,7 +465,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                   </View>
                 </View>
               )}
-            </Animated.View>
+            </View>
           </View>
         </View>
       </ScrollView>

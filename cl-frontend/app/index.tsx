@@ -6,7 +6,7 @@ import { THEME } from '@/lib/theme';
 import { Stack, Redirect } from 'expo-router';
 import { useColorScheme } from 'nativewind';
 import * as React from 'react';
-import { View, ScrollView, Animated, SafeAreaView } from 'react-native';
+import { View, ScrollView, SafeAreaView } from 'react-native';
 import { GlobeIcon } from 'lucide-react-native';
 import { useSettings } from '@/lib/SettingsContext';
 import { useRouter } from 'expo-router';
@@ -32,20 +32,9 @@ export default function LandingPage() {
   const { colorScheme } = useColorScheme();
   const { showMainApp } = useSettings(); // CHANGE THIS!
   const router = useRouter();
-  // Animated opacity for fade-out when navigating away
-  const opacity = React.useRef(new Animated.Value(1)).current;
-
   const handleGetStarted = () => {
-    // Fade out, then navigate when animation completes
-    Animated.timing(opacity, {
-      toValue: 0,
-      duration: 300,
-      useNativeDriver: true,
-    }).start(() => {
-      router.push('/create-account');
-      // reset opacity back to 1 in case user navigates back
-      opacity.setValue(1);
-    });
+    // Navigate immediately to the create-account flow (no fade)
+    router.push('/create-account');
   };
 
   // If showMainApp is true, redirect to the main app page
@@ -54,7 +43,7 @@ export default function LandingPage() {
   }
 
   return (
-    <Animated.View style={{ flex: 1, opacity }}>
+    <View style={{ flex: 1 }}>
       <Stack.Screen options={SCREEN_OPTIONS[colorScheme ?? 'light']} />
       <SafeAreaView className="flex-1">
         <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
@@ -106,6 +95,6 @@ export default function LandingPage() {
           </View>
         </ScrollView>
       </SafeAreaView>
-    </Animated.View>
+    </View>
   );
 }
