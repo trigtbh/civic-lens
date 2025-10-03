@@ -84,6 +84,8 @@ def translate():
             with open(os.path.join(base, "cached_translations.json"), "w", encoding="utf-8") as f:
                 json.dump(cached, f, ensure_ascii=False, indent=4)
             # reattach the original prefix when returning
+            if data.get("target") in rtl_langs and prefix:
+                return jsonify({"translation": translation + prefix[::-1]}), 200
             return jsonify({"translation": prefix + translation}), 200
     return jsonify({"error": "Translation failed"}), 500
 

@@ -105,6 +105,22 @@ export default function CreateAccountFinal() {
     router.push('/main-app' as any);
   };
 
+  const isRtlLang = React.useMemo(() => {
+    const rtl = new Set(['ar', 'fa', 'he', 'ur']);
+    let code: string | undefined;
+    try { if (typeof localStorage !== 'undefined') code = localStorage.getItem('preferredLanguage') || undefined; } catch (e) {}
+    try { if (!code && typeof document !== 'undefined' && document.documentElement?.lang) code = document.documentElement.lang; } catch (e) {}
+    try {
+      if (!code) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const nav = (typeof navigator !== 'undefined' ? (navigator as any).language || (navigator as any).userLanguage : undefined) as string | undefined;
+        if (nav) code = nav;
+      }
+    } catch (e) {}
+    if (!code) return false;
+    return rtl.has(code.split('-')[0]);
+  }, []);
+
   return (
     <Animated.View style={{ flex: 1, opacity }}>
       <Stack.Screen options={SCREEN_OPTIONS[colorScheme ?? 'light'] as any} />
@@ -112,12 +128,12 @@ export default function CreateAccountFinal() {
         <ScrollView className="flex-1" contentContainerStyle={{ flexGrow: 1 }}>
           <View className="flex-1 justify-center items-center p-6">
             <View className="w-full max-w-md">
-              <View className="items-center mb-8">
+              <View className={`${isRtlLang ? 'items-end' : 'items-center'} mb-8`}>
                 <View className="w-16 h-16 bg-primary rounded-full items-center justify-center mb-4">
                   <Icon as={GlobeIcon} size={32} className="text-primary-foreground" />
                 </View>
-                <Text variant="h2" className="text-center mb-2">Finish creating your account</Text>
-                <Text variant="muted" className="text-center">Pick a username and a secure password</Text>
+                <Text variant="h2" className={`${isRtlLang ? 'text-right' : 'text-center'} mb-2`}>Finish creating your account</Text>
+                <Text variant="muted" className={`${isRtlLang ? 'text-right' : 'text-center'}`}>Pick a username and a secure password</Text>
               </View>
 
               <Card className="mb-4">

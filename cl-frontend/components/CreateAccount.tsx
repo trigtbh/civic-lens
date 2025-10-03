@@ -208,6 +208,34 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
     }
   };
 
+  // Determine if the currently selected language should be treated as RTL
+  const isRtlLang = React.useMemo(() => {
+    const rtl = new Set(['ar', 'fa', 'he', 'ur']);
+    const code = selectedLanguage?.code || (() => {
+      try {
+        if (typeof localStorage !== 'undefined') return localStorage.getItem('preferredLanguage') || undefined;
+      } catch (e) {
+        // ignore
+      }
+      try {
+        if (typeof document !== 'undefined' && document.documentElement?.lang) return document.documentElement.lang;
+      } catch (e) {
+        // ignore
+      }
+      try {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const nav = (typeof navigator !== 'undefined' ? (navigator as any).language || (navigator as any).userLanguage : undefined) as string | undefined;
+        if (nav) return nav;
+      } catch (e) {
+        // ignore
+      }
+      return undefined;
+    })();
+    if (!code) return false;
+    const base = code.split('-')[0];
+    return rtl.has(base);
+  }, [selectedLanguage]);
+
   const toggleTopic = (id: string) => {
     setSelectedTopics(prev => ({ ...prev, [id]: !prev[id] }));
   };
@@ -304,7 +332,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                       </Text>
                       <Select value={selectedOption} onValueChange={handleLanguageChange}>
                         <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Select a language" className="text-left" />
+                          <SelectValue placeholder="Select a language" className={isRtlLang ? 'text-right' : 'text-left'} />
                         </SelectTrigger>
                         <SelectContent>
                           {languages.map((language) => (
@@ -351,7 +379,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                     </CardContent>
                   </Card>
 
-                  <View className="flex-row gap-3">
+                  <View className={`${isRtlLang ? 'flex-row-reverse' : 'flex-row'} gap-3`}>
                     <Button className="flex-1" variant="secondary" onPress={() => fadeToStep(0)}>
                       <Text>Back</Text>
                     </Button>
@@ -420,7 +448,7 @@ export function CreateAccount({ onLanguageSelected, onNext }: CreateAccountProps
                     </CardContent>
                   </Card>
 
-                  <View className="flex-row gap-3">
+                  <View className={`${isRtlLang ? 'flex-row-reverse' : 'flex-row'} gap-3`}>
                     <Button className="flex-1" variant="secondary" onPress={() => fadeToStep(1)}>
                       <Text>Back</Text>
                     </Button>

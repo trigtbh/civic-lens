@@ -48,6 +48,27 @@ export default function SelectItemsScreen() {
   }, [opacity]);
   const [selected, setSelected] = React.useState<Record<string, boolean>>({});
 
+  // Detect RTL from document/navigator/localStorage similar to CreateAccount
+  const isRtlLang = React.useMemo(() => {
+    const rtl = new Set(['ar', 'fa', 'he', 'ur']);
+    let code: string | undefined;
+    try {
+      if (typeof localStorage !== 'undefined') code = localStorage.getItem('preferredLanguage') || undefined;
+    } catch (e) {}
+    try {
+      if (!code && typeof document !== 'undefined' && document.documentElement?.lang) code = document.documentElement.lang;
+    } catch (e) {}
+    try {
+      if (!code) {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const nav = (typeof navigator !== 'undefined' ? (navigator as any).language || (navigator as any).userLanguage : undefined) as string | undefined;
+        if (nav) code = nav;
+      }
+    } catch (e) {}
+    if (!code) return false;
+    return rtl.has(code.split('-')[0]);
+  }, []);
+
   const toggle = (id: string) => {
     setSelected(prev => ({ ...prev, [id]: !prev[id] }));
   };
@@ -76,18 +97,18 @@ export default function SelectItemsScreen() {
         <View className="flex-1 justify-center items-center p-6">
           <View className="w-full max-w-md">
             {/* Header */}
-            <View className="items-center mb-6">
+            <View className={`${isRtlLang ? 'items-end' : 'items-center'} mb-6`}> 
               <View className="w-16 h-16 bg-primary rounded-full items-center justify-center mb-4">
                 <Icon as={GlobeIcon} size={32} className="text-primary-foreground" />
               </View>
-              <Text variant="h2" className="text-center mb-2">Choose topics you're interested in</Text>
-              <Text variant="muted" className="text-center">You can pick multiple items</Text>
+              <Text variant="h2" className={`${isRtlLang ? 'text-right' : 'text-center'} mb-2`}>Choose topics you're interested in</Text>
+              <Text variant="muted" className={`${isRtlLang ? 'text-right' : 'text-center'}`}>You can pick multiple items</Text>
             </View>
 
             {/* Single card containing many items rendered as oval chips */}
             <Card>
               <CardContent>
-                <View className="flex-row flex-wrap gap-3 justify-center items-center">
+                <View className={`${isRtlLang ? 'flex-row-reverse' : 'flex-row'} flex-wrap gap-3 justify-center items-center`}>
                   {SAMPLE_ITEMS.map(item => {
                     const isSelected = !!selected[item.id];
                     return (
