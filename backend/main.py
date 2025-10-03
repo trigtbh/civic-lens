@@ -38,7 +38,7 @@ def translate():
             return "", ""
         for i, ch in enumerate(s):
             # isalnum covers Unicode letters and numbers
-            if ch.isalnum():
+            if ch in "QWERTYUIOPASDFGHJKLZXCVBNMqwertyuiopasdfghjklzxcvbnm1234567890":
                 return s[:i], s[i:]
         # no alnum found -> everything is prefix
         return s, ""
@@ -57,9 +57,10 @@ def translate():
         if core_text in cached[pipeline]:
             # reattach prefix before returning
             cached_translation = cached[pipeline][core_text]
-            if data.get("target") in rtl_langs and prefix:
-                # append reversed prefix on the right for RTL targets
-                return jsonify({"translation": cached_translation + prefix[::-1]}), 200
+            #if data.get("target") in rtl_langs and prefix:
+            #    # append reversed prefix on the right for RTL targets
+            #    print(cached_translation, prefix)
+            #    return jsonify({"translation": cached_translation + prefix[::-1]}), 200
             return jsonify({"translation": prefix + cached_translation}), 200
     else:
         cached[pipeline] = {}
@@ -84,8 +85,9 @@ def translate():
             with open(os.path.join(base, "cached_translations.json"), "w", encoding="utf-8") as f:
                 json.dump(cached, f, ensure_ascii=False, indent=4)
             # reattach the original prefix when returning
-            if data.get("target") in rtl_langs and prefix:
-                return jsonify({"translation": translation + prefix[::-1]}), 200
+            #if data.get("target") in rtl_langs and prefix:
+            #    print(translation, prefix[::-1])
+            #    return jsonify({"translation": translation + prefix[::-1]}), 200
             return jsonify({"translation": prefix + translation}), 200
     return jsonify({"error": "Translation failed"}), 500
 
